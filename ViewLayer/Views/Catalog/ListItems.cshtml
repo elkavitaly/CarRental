@@ -1,0 +1,40 @@
+@model IEnumerable<BusinessLayer.Models.Car>
+
+<div class="list-items">
+    @foreach (var element in Model)
+    {
+        <div class="item">
+            <div class="item-info">
+                <div class="item-info-header">
+                    <div class="type-item">@element.Class&nbsp;</div>
+                    <div>@element.Name</div>
+                </div>
+                <div class="item-info-details">
+                    <div class="item-info-details-image">
+                        <img src="../../Content/Images/@element.Image">
+                    </div>
+                    <div class="item-info-details-features">
+                        <p class="feature-header">Features</p>
+                        <p class="feature-list-item">Auto transmission</p>
+                        <p class="feature-list-item">Condition</p>
+                        <p class="feature-list-item">4 passengers</p>
+                    </div>
+                    <div class="item-info-details-features">
+                        <p class="feature-header">Services</p>
+                        <p class="feature-list-item">Free cancelation</p>
+                        <p class="feature-list-item">Pay Now Special</p>
+                        <p class="feature-list-item">Unlimited mileage</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item-price">
+                <div class="price">$ @element.Price /day</div>
+                <div class="order-button">
+                    <a href="https://localhost:44387/Catalog/Item?id=@element.Id">
+                        <button class="order-button-btn" type="button">Order now</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

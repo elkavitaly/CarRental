@@ -1,0 +1,99 @@
+@model List<BusinessLayer.Models.Car>
+@Styles.Render("~/Content/catalogstyle.css")
+
+
+<div class="catalog-page">
+    <div class="sorting">
+        <div class="sorting-header">Sort By</div>
+        <select id="sort">
+            <option value="price_up">Price Up</option>
+            <option value="price_down">Price Down</option>
+            <option value="name">Name</option>
+        </select>
+    </div>
+    <div class="cols-container">
+        <div class="col-20">
+            <div class="filter">
+                @foreach (var element in (Dictionary<string, List<string>>) ViewBag.Filters)
+                {
+                    <div class="filter-section">
+                        <div class="filter-section-header">@element.Key</div>
+                        <div class="filter-section-content">
+                            @foreach (var item in element.Value)
+                            {
+                                <div class="filter-item">
+                                    <input type="checkbox" name="@element.Key" value="@item" id="@item">
+                                    <label for="@item">@item</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-80" id="list"></div>
+    </div>
+</div>
+<script>
+    load(null, document.querySelector("#sort").value, '@Url.Action("Filter")');
+    
+    let select  = document.querySelector("#sort");
+    select.addEventListener("change", function(){
+        let data = parameters();
+        load(data, this.value, '@Url.Action("Filter")');
+    });
+    
+    let div = document.querySelector(".filter");
+    div.addEventListener("click", function(event){
+        if(event.target.nodeName == "INPUT"){
+            let data = parameters();
+            load(data, document.querySelector("#sort").value, '@Url.Action("Filter")');
+        }
+    });
+
+    function parameters(){
+        let inputs = document.querySelectorAll(".filter-section input");
+        let checkedInputs = {};
+        for(let elem of inputs){
+            if(elem.checked == true){
+                let name = elem.name;
+                if(checkedInputs[name] == null){
+                   checkedInputs[name] = [];
+                }
+                checkedInputs[name].push(elem.value);
+            }
+        }
+        
+        return checkedInputs;
+    }
+    
+    function load(data, sortdata, url){    
+        let obj = JSON.stringify({Filter: data, Sort: sortdata});
+        let request = new XMLHttpRequest();
+        request.open("POST", url);
+        request.send(obj);
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                document.querySelector("#list").innerHTML = request.responseText;
+            }
+        }
+    }
+</script>
+
+@* <div class="filter-section"> *@
+@*     <div class="filter-section-header">Type</div> *@
+@*     <div class="filter-section-content"> *@
+@*         <div class="filter-item"> *@
+@*             <input type="checkbox" name="Class" value="Econom" id="econom"> *@
+@*             <label for="econom">Econom</label> *@
+@*         </div> *@
+@*         <div class="filter-item"> *@
+@*             <input type="checkbox" name="Class" value="Standart" id="standart"> *@
+@*             <label for="standart">Standart</label> *@
+@*         </div> *@
+@*         <div class="filter-item"> *@
+@*             <input type="checkbox" name="Class" value="Full-size" id="fullsize"> *@
+@*             <label for="fullsize">Full-size</label> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@

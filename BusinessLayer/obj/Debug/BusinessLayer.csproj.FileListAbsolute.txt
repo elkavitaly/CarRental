@@ -1,0 +1,10 @@
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\BusinessLayer.dll.config
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\BusinessLayer.dll
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\BusinessLayer.pdb
+C:\Users\drago\source\repos\CarRental\BusinessLayer\obj\Debug\BusinessLayer.csprojAssemblyReference.cache
+C:\Users\drago\source\repos\CarRental\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\drago\source\repos\CarRental\BusinessLayer\obj\Debug\BusinessLayer.dll
+C:\Users\drago\source\repos\CarRental\BusinessLayer\obj\Debug\BusinessLayer.pdb
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\drago\source\repos\CarRental\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete

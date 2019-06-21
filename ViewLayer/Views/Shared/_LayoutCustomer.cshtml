@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CarRental</title>
+    @Styles.Render("~/Content/style.css")
+</head>
+<body>
+<header>
+    <div class="col-50">
+        <div class="logo-text">
+            <p>CarRental</p>
+        </div>
+    </div>
+    <div class="col-50">
+        <div class="menu-item">
+            @Html.ActionLink("Home", "Index", "Home")
+        </div>
+        <div class="menu-item">
+            @Html.ActionLink("Catalog", "Index", "Catalog")
+        </div>
+        <div class="menu-item">
+            <p>About us</p>
+        </div>
+        <div class="menu-item">
+            <p>Contacts</p>
+        </div>
+    </div>
+</header>
+<main>
+    @RenderBody()
+</main>
+<footer>
+
+</footer>
+@Scripts.Render("~/bundles/jquery")
+</body>
+</html>

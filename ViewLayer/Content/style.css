@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:400,500,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comfortaa', cursive;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+    color: white;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    opacity: 0.8;
+    align-items: center;
+}
+
+.col-50 {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    justify-content: space-between;
+
+}
+
+.col-30 {
+    display: flex;
+    width: 30%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.col-70 {
+    display: flex;
+    width: 70%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.col-40 {
+    display: flex;
+    width: 40%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.col-60 {
+    display: flex;
+    width: 60%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.col-20 {
+    display: flex;
+    width: 20%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.col-80 {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+    margin-left: 20%;
+    margin-right: auto;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+.menu-item {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+
+.background_image {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -5;
+}
+
+.background_image img {
+    height: 100vh;
+    width: 100%;
+}
+
+.start-page {
+    height: 100vh;
+    /*height: calc(100vh - 100px);*/
+    width: 100%;
+}
+
+.main-text {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 700;
+    font-size: 70px;
+    text-align: center;
+}
+
+.form-page {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-image: url("Images/city_road_edited.jpg");
+    background-repeat: no-repeat;
+}
+
+.form-page img {
+    width: 100%;
+}
+
+.form-page-form {
+    /*background-color: black;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    height: 70%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+
+.form-header {
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.form-inputs {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.row {
+    width: 90%;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.row input {
+    height: 100%;
+    width: 90%;
+    border-radius: 3px;
+    border: none;
+    background-color: white;
+    font-size: 18px;
+    color: black;
+    transition: all 300ms ease-out 0s;
+}
+
+input[name=pickup] {
+    height: 100%;
+    width: 95%;
+    border-radius: 3px;
+}
+
+.row input[name=findbtn]:hover {
+    background-color: #b5b5b5;
+    transform: scale(1.05);
+}
+
+input:focus {
+    outline: none;
+}
+
+.row input::placeholder {
+    color: black;
+}
+
+footer {
+    height: 100px;
+    background-color: black;
+}
