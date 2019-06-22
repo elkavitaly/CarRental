@@ -1,0 +1,32 @@
+@model IEnumerable<BusinessLayer.Models.ApplicationUser>
+
+<div>
+    <div>@Html.ActionLink("Add", "AddRole")</div>
+    @foreach (var user in Model)
+    {
+        <div>@user.Id</div>
+        <div>@user.Email</div>
+        <div>@user.PasswordHash</div>
+        foreach (var role in user.Roles)
+        {
+            <div>@role.RoleId</div>
+        }
+        <div>
+            <button type="button" class="delete-btn" value="@user.Id">Delete</button>
+        </div>
+        <br/>
+    }
+</div>
+<script>
+let buttons = document.querySelectorAll(".delete-btn");
+for(let btn of buttons){
+    btn.addEventListener("click", clickDelete);
+}
+
+function clickDelete(){
+    let value = this.value;
+    let request = new XMLHttpRequest();
+    request.open("POST", '');
+    request.send(value);
+}
+</script>

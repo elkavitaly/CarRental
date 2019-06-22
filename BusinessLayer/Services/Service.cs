@@ -4,7 +4,6 @@ using System.Linq;
 using BusinessLayer.Factory;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Models;
-using BusinessLayer.Utils;
 
 namespace BusinessLayer.Services
 {

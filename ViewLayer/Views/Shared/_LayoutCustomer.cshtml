@@ -22,7 +22,18 @@
             <p>About us</p>
         </div>
         <div class="menu-item">
-            <p>Contacts</p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {@id = "logout-form"}))
+                {
+                    @Html.AntiForgeryToken()
+                    <a id="submit-logout">Log Off</a>
+                }
+            }
+            else
+            {
+                @Html.ActionLink("Log In", "Login", "Account")
+            }
         </div>
     </div>
 </header>
@@ -32,6 +43,16 @@
 <footer>
 
 </footer>
+<script>
+    let submit = document.querySelector("#submit-logout");
+    if(submit != null){
+        submit.style.cursor = "pointer";
+        submit.addEventListener("click", function() {
+            document.querySelector("#logout-form").submit();
+        });
+    }
+</script>
 @Scripts.Render("~/bundles/jquery")
+
 </body>
 </html>
