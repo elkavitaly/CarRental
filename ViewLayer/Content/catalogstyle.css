@@ -3,6 +3,7 @@ header {
 }
 
 main {
+    margin: 0;
     background-color: #d1d1d1;
     min-height: calc(100vh - 200px);
 }
@@ -13,6 +14,7 @@ main {
     margin-right: auto;
     margin-bottom: 20px;
     display: flex;
+    flex-direction: column;
 }
 
 .filter {
@@ -169,12 +171,6 @@ select {
 option {
     background-color: #8c8c8c;
     color: black;
-}
-
-.catalog-page {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
 }
 
 .cols-container {

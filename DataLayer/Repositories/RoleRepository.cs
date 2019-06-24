@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using BusinessLayer.Infrastructure;
 using DataLayer.Contexts;
@@ -16,10 +15,10 @@ namespace DataLayer.Repositories
 
         public void Delete(IdentityRole item) => _context.Roles.Remove(item);
 
-        public void Delete(Guid id) =>
+        public void Delete(string id) =>
             _context.Roles.Remove(_context.Roles.Find(id) ?? throw new KeyNotFoundException());
 
-        public IdentityRole GetById(Guid id) => _context.Roles.Find(id);
+        public IdentityRole GetById(string id) => _context.Roles.Find(id);
 
         public IEnumerable<IdentityRole> GetAll() => _context.Roles;
     }

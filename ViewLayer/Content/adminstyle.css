@@ -1,0 +1,122 @@
+.add-section {
+    display: flex;
+    justify-content: center;
+}
+
+.add-user-link {
+    display: flex;
+    width: 80%;
+    margin: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.add-user-link a:hover {
+    color: #494949;
+}
+
+.table-user-section {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.users-table {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 80%;
+}
+
+.users-table tr {
+    height: 30px;
+}
+
+.users-table td {
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.users-btn-edit-delete {
+    height: 30px;
+    width: 100%;
+    background-color: #494949;
+    border: none;
+    color: white;
+}
+
+.register-form {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-label {
+    margin-top: 20px;
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.register-input input {
+    width: 400px;
+    height: 25px;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: 1px solid grey;
+    font-size: 18px;
+}
+
+.select-role {
+    width: 150px;
+    height: 25px;
+    font-size: 18px;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+.role-list {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.role-row {
+    display: flex;
+    margin-top: 10px;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.btn-admin {
+    height: 25px;
+    width: 100px;
+    border-radius: 3px;
+    border: none;
+    background-color: grey;
+}
+
+.add-roles {
+    display: flex;
+    margin-top: 10px;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.register-btn-section {
+    margin-top: 20px;
+}
+
+.btn-register {
+    height: 40px;
+    width: 150px;
+    border-radius: 3px;
+    border: none;
+    background-color: #565656;
+}
+

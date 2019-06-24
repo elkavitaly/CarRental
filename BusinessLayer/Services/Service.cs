@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using BusinessLayer.Factory;
@@ -13,7 +12,7 @@ namespace BusinessLayer.Services
 
         public Service() => _unitOfWork = RepositoryFactory.Instance.Initialize;
 
-        public Car GetById(Guid id) => _unitOfWork.Cars.GetById(id);
+        public Car GetById(string id) => _unitOfWork.Cars.GetById(id);
 
         public IEnumerable<Car> Filter(Dictionary<string, IEnumerable<string>> dict)
         {

@@ -1,13 +1,7 @@
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
 <div>
-    @ViewBag.Valid
+    <div>Admin Panel</div>
+    <div>
+        <a class="admin-link" href="#">Cars</a>
+    </div>
+    <div>@Html.ActionLink("Users", "Users", "Admin", new {@class = "admin-link"})</div>
 </div>
-</body>
-</html>

@@ -1,0 +1,29 @@
+@model IEnumerable<ViewLayer.Models.ApplicationUserViewModel>
+
+<table class="users-table">
+    <tr>
+        <th>UserId</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Email</td>
+            <td>@user.Roles</td>
+            <td>
+                <button type="button" class="edit users-btn-edit-delete" value="@user.Id">
+                    <a href='@Url.Action("EditUser")?id=@user.Id'>Edit</a>
+                </button>
+            </td>
+            <td>
+                <button type="button" class="delete users-btn-edit-delete" value="@user.Id">
+                    <a href='@Url.Action("DeleteUser")?id=@user.Id'>Delete</a>
+                </button>
+            </td>
+        </tr>
+    }
+</table>

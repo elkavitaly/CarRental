@@ -1,0 +1,121 @@
+@model ViewLayer.Models.UserRegisterViewModel
+@Styles.Render("~/Content/adminstyle.css")
+<div class="register-form">
+    <div>
+        @Html.AntiForgeryToken()
+        <div class="flex-container">
+            @Html.LabelFor(m => m.Email, new {@class = "register-label"})
+            <div class="register-input">
+                @Html.EditorFor(m => m.Email)
+            </div>
+        </div>
+        <div class="flex-container">
+            @Html.LabelFor(m => m.Password, new {@class = "register-label"})
+            <div class="register-input">
+                @Html.EditorFor(m => m.Password)
+            </div>
+        </div>
+        <div class="flex-container">
+            @Html.LabelFor(m => m.ConfirmPassword, new {@class = "register-label"})
+            <div class="register-input">
+                @Html.EditorFor(m => m.ConfirmPassword)
+            </div>
+        </div>
+        <div class="flex-container">
+            @Html.LabelFor(m => m.Roles, new {@class = "register-label"})
+            <div class="add-roles">
+                <select class="select-role" name="Role">
+                    @foreach (var role in (IEnumerable<string>) ViewBag.Roles)
+                    {
+                        <option value="@role">@role</option>
+                    }
+                </select>
+                <div>
+                    <button type="button" class="role-add btn-admin">Add role</button>
+                </div>
+            </div>
+        </div>
+        <div class="role-list"></div>
+        <div class="register-btn-section">
+            <button type="button" class="btn-register">Register</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let addButton = document.querySelector(".role-add");
+    addButton.onclick = add;
+    
+    let form = document.querySelector(".btn-register");
+    form.onclick = submitForm;
+        
+    function add(){
+        let selectValue = document.querySelector(".select-role").value;
+        let list = document.querySelector(".role-list");
+        let nodeList = list.querySelectorAll(".role-row");
+        
+        let flag = true;
+        for(let elem of nodeList){
+            if(elem.getAttribute("id") === selectValue){
+                flag = false;
+                break;
+            }
+        }
+        
+        if(flag === false){
+            return;
+        }
+        
+        let roleRow = document.createElement("div");
+        roleRow.className = "role-row";
+        roleRow.setAttribute("id", selectValue);
+        
+        let roleName = document.createElement("div");
+        roleName.className = "role-name Roles";
+        roleName.setAttribute("name", "Roles");
+        roleName.setAttribute("value", selectValue);
+        roleName.appendChild(document.createTextNode(selectValue));
+        
+        let rowDelete = document.createElement("div");
+        let button = document.createElement("button");
+        button.className = "role-delete btn-admin";
+        button.setAttribute("type", "button");
+        button.value = selectValue;
+        button.appendChild(document.createTextNode("Delete"));
+        button.onclick = deleteRole;
+        
+        rowDelete.appendChild(button);
+        roleRow.appendChild(roleName);
+        roleRow.appendChild(rowDelete);
+        list.appendChild(roleRow); 
+    }
+    
+    function deleteRole(){
+        let value = this.value;
+        let roleList = document.querySelector(".role-list");
+        let select = document.getElementById(value);       
+        roleList.removeChild(select);
+    }
+    
+    function submitForm(){
+        let email = document.querySelector("#Email").value;
+        let password = document.querySelector("#Password").value;
+        let confirmPassword = document.querySelector("#ConfirmPassword").value;
+        let roles = document.querySelectorAll(".Roles");
+        let roleNames = [];
+        
+        for(let elem of roles){
+            roleNames.push(elem.getAttribute("value"));
+        }
+        
+        let obj = {Email: email, Password: password, ConfirmPassword: confirmPassword, Roles: roleNames};
+        request('@Url.Action("AddUser")', JSON.stringify(obj));
+    }
+    
+    function request(url, data){
+        let request = new XMLHttpRequest();
+        request.open("post", url);
+        request.send(data);
+    }
+    
+</script>

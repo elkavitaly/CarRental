@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Infrastructure
@@ -7,8 +6,8 @@ namespace BusinessLayer.Infrastructure
     {
         void Add(T item);
         void Delete(T item);
-        void Delete(Guid id);
-        T GetById(Guid id);
+        void Delete(string id);
+        T GetById(string id);
         IEnumerable<T> GetAll();
     }
 }

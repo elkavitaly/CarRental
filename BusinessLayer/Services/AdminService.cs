@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BusinessLayer.Factory;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Models;
@@ -21,15 +22,19 @@ namespace BusinessLayer.Services
             _unitOfWork.SaveIdentity();
         }
 
-        public void DeleteRole(Guid id)
+        public void DeleteRole(string name)
         {
-            _unitOfWork.Roles.Delete(_unitOfWork.Roles.GetById(id));
+            var roleId = _unitOfWork.Roles.GetAll().First(r => r.Name.Equals(name)).Id;
+            _unitOfWork.Roles.Delete(roleId);
             _unitOfWork.SaveIdentity();
         }
 
-        public void AddUserToRole(string userId, string roleId)
+        public void AddUserToRole(string userId, string role)
         {
-//            _unitOfWork.Users.Roles.Add(new IdentityUserRole {RoleId = roleId, UserId = userId});
+            var roleId = _unitOfWork.Roles.GetAll().First(r => r.Name.Equals(role)).Id;
+            _unitOfWork.Users.GetAll().First(u => u.Id.Equals(userId)).Roles
+                .Add(new IdentityUserRole() {RoleId = roleId, UserId = userId});
+            _unitOfWork.SaveIdentity();
         }
 
         public void DeleteUserFromRole(string userId, string roleId) => throw new NotImplementedException();
@@ -42,10 +47,17 @@ namespace BusinessLayer.Services
             _unitOfWork.SaveIdentity();
         }
 
-        public void DeleteUser(Guid userId)
+        public void DeleteUser(string userId)
         {
             _unitOfWork.Users.Delete(_unitOfWork.Users.GetById(userId));
             _unitOfWork.SaveIdentity();
+        }
+
+        public IEnumerable<string> GetRoles(string userId)
+        {
+            var userRoles = _unitOfWork.Users.GetById(userId).Roles;
+            var roles = _unitOfWork.Roles.GetAll().ToList();
+            return userRoles.Select(userRole => roles.First(r => r.Id.Equals(userRole.RoleId)).Name).ToList();
         }
     }
 }

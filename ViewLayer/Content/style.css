@@ -32,6 +32,7 @@ header {
 
 main {
     margin-top: 100px;
+    min-height: calc(100vh - 200px);
 }
 
 .col-50 {
@@ -120,8 +121,7 @@ main {
 }
 
 .start-page {
-    height: 100vh;
-    /*height: calc(100vh - 100px);*/
+    height: calc(100vh - 100px);
     width: 100%;
 }
 
@@ -221,4 +221,8 @@ input:focus {
 footer {
     height: 100px;
     background-color: black;
+}
+
+.admin-link {
+    color: black;
 }

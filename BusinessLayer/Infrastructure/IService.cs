@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using BusinessLayer.Models;
 
@@ -6,7 +5,7 @@ namespace BusinessLayer.Infrastructure
 {
     public interface IService
     {
-        Car GetById(Guid id);
+        Car GetById(string id);
 
         IEnumerable<Car> Filter(Dictionary<string, IEnumerable<string>> dictionary);
 

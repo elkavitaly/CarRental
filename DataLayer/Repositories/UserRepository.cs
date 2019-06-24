@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Models;
 using DataLayer.Contexts;
@@ -12,29 +12,14 @@ namespace DataLayer.Repositories
 
         public UserRepository(ApplicationDbContext context) => _context = context;
 
-        public void Add(ApplicationUser item)
-        {
-            throw new NotImplementedException();
-        }
+        public void Add(ApplicationUser item) => _context.Users.Add(item);
 
-        public void Delete(ApplicationUser item)
-        {
-            throw new NotImplementedException();
-        }
+        public void Delete(ApplicationUser item) => _context.Users.Remove(item);
 
-        public void Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public void Delete(string id) => _context.Users.Remove(GetById(id));
 
-        public ApplicationUser GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public ApplicationUser GetById(string id) => _context.Users.First(user => user.Id == id);
 
-        public IEnumerable<ApplicationUser> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerable<ApplicationUser> GetAll() => _context.Users;
     }
 }

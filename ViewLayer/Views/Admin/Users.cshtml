@@ -1,32 +1,49 @@
-@model IEnumerable<BusinessLayer.Models.ApplicationUser>
+@model IEnumerable<ViewLayer.Models.ApplicationUserViewModel>
+@Styles.Render("~/Content/adminstyle.css")
 
-<div>
-    <div>@Html.ActionLink("Add", "AddRole")</div>
-    @foreach (var user in Model)
-    {
-        <div>@user.Id</div>
-        <div>@user.Email</div>
-        <div>@user.PasswordHash</div>
-        foreach (var role in user.Roles)
-        {
-            <div>@role.RoleId</div>
-        }
-        <div>
-            <button type="button" class="delete-btn" value="@user.Id">Delete</button>
-        </div>
-        <br/>
-    }
+<div class="add-section">
+    <div class="add-user-link">
+        <a href='@Url.Action("AddUser", "Admin")' class="admin-link">Add new user</a>
+    </div>
 </div>
-<script>
-let buttons = document.querySelectorAll(".delete-btn");
-for(let btn of buttons){
-    btn.addEventListener("click", clickDelete);
-}
+<div class="table-user-section" id="table-user-section"></div>
 
-function clickDelete(){
-    let value = this.value;
-    let request = new XMLHttpRequest();
-    request.open("POST", '');
-    request.send(value);
-}
+<script>
+    load('@Url.Action("ListUsers")');
+    let editButtons = document.querySelectorAll(".edit");
+    for(let button of editButtons){
+        button.onclick = editFunc;
+    }
+    
+    let deleteButtons = document.querySelectorAll(".delete");
+    for(let button of deleteButtons){
+        button.onclick = deleteFunc;
+    }
+    
+    function editFunc() {   
+        let value = this.value;
+        request('@Url.Action("EditUser")', value);
+    }
+    
+    function deleteFunc() {   
+        let value = this.value;
+        request('@Url.Action("DeleteUser")', value);
+    }
+    
+    function request(url, data){
+        let request = new XMLHttpRequest();
+        request.open("post", url);
+        request.send(data);
+    }
+    
+    function load(url){    
+        let request = new XMLHttpRequest();
+        request.open("POST", url);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState === 4 && request.status === 200){
+                document.querySelector("#table-user-section").innerHTML = request.responseText;
+            }
+        }
+    }
 </script>

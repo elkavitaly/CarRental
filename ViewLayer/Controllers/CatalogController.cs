@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.Infrastructure;
@@ -21,9 +19,9 @@ namespace ViewLayer.Controllers
             return View();
         }
 
-        public string Item(Guid? id)
+        public string Item(string id)
         {
-            var item = _service.GetById((Guid) id);
+            var item = _service.GetById(id);
             return "result " + item.Name;
         }
 
