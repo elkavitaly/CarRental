@@ -9,7 +9,7 @@
 <div class="table-user-section" id="table-user-section"></div>
 
 <script>
-    load('@Url.Action("ListUsers")');
+    load('@Url.Action("UsersList")');
     let editButtons = document.querySelectorAll(".edit");
     for(let button of editButtons){
         button.onclick = editFunc;

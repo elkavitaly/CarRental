@@ -15,6 +15,12 @@ namespace DataLayer.Repositories
 
         public void Add(Order item) => _context.OrderEntities.Add(Mapper.Map<OrderEntity, Order>(item));
 
+        public void Update(Order item)
+        {
+            Delete(item.Id.ToString("D"));
+            Add(item);
+        }
+
         public void Delete(Order item) => _context.OrderEntities.Remove(Mapper.Map<OrderEntity, Order>(item));
 
         public void Delete(string id) =>

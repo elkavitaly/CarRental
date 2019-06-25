@@ -10,6 +10,9 @@ namespace DataLayer.Models
         public DateTime End { get; set; }
         public double Total { get; set; }
         public virtual Guid CarEntityId { get; set; }
+        public virtual CarEntity CarEntity { get; set; }
         public Guid UserId { get; set; }
+        public string FullName { get; set; }
+        public string Passport { get; set; }
     }
 }

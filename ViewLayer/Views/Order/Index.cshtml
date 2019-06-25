@@ -1,0 +1,110 @@
+@model BusinessLayer.Models.Order
+@Styles.Render("~/Content/orderstyle.css")
+
+@using (Html.BeginForm("Index", "Order", FormMethod.Post))
+{
+    @Html.TextBoxFor(m => m.Car.Id, new {@style = "visibility: hidden"})
+
+    <div class="form-order">
+        <div class="col-50-order">
+            <div class="input-container">
+                <div class="label-text">Name</div>
+                @Html.TextBoxFor(m => m.Car.Name, new {@readonly = "readonly", @class = "label-input"})
+            </div>
+            <div class="input-container">
+                <div class="label-text">Class</div>
+                @Html.TextBoxFor(m => m.Car.Class, new {@readonly = "readonly", @class = "label-input"})
+            </div>
+            <div class="input-container">
+                <div class="label-text">Full name</div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.FullName)
+                </div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Passport</div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.Passport)
+                </div>
+            </div>
+        </div>
+        <div class="col-50-order">
+            <div class="input-container">
+                <div class="label-text">Price</div>
+                @Html.TextBoxFor(m => m.Car.Price, new {@readonly = "readonly", @class = "label-input", @id = "price"})
+            </div>
+            <div class="input-container">
+                <div class="label-text">Date start</div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.Start, new {@type = "date", @id = "date_start"})
+                </div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Date end</div>
+                <div class="input">
+                    @Html.TextBoxFor(m => m.End, new {@type = "date", @id = "date_end"})
+                </div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Driver</div>
+                <div class="checkbox-input">
+                    @Html.CheckBoxFor(m => m.Driver)
+                </div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Total</div>
+                <div class="input" id="total" value="200">
+                    @Html.TextBoxFor(m => m.Total, new {@readonly = "readonly", @class = "label-input input-total"})
+                </div>
+            </div>
+            <div class="input-container">
+                <div class="input">
+                    <button type="submit">Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    let date = new Date(Date.now());
+    let dayStart = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    let month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+    let dayEnd= date.getDate() < 10 ? "0" + (date.getDate() + 1) : (date.getDate() + 1);
+    let startDate = date.getFullYear() + "-" + month + "-" +  dayStart;
+    let endDate = date.getFullYear() + "-" + month + "-" +  dayEnd;
+    let start_date = document.querySelector("#date_start");
+    start_date.onchange = startDateChanged;
+    start_date.value = startDate;
+    let end_date = document.querySelector("#date_end");
+    end_date.onchange = endDateChanged;
+    end_date.value = endDate;
+    countSum();
+
+    function startDateChanged() {
+        startDate = this.value;
+        countSum();
+    }
+    
+    function endDateChanged() {
+        endDate = this.value;
+        countSum();
+    }
+    
+    function countSum(){
+        let start_date = Date.parse(document.querySelector("#date_start").value);
+        let end_date = Date.parse(document.querySelector("#date_end").value);
+        let day = 24 * 3600 * 1000;
+        let price = document.querySelector("#price");
+        let total = document.querySelector(".input-total");
+        total.value = Math.abs(Math.round((end_date - start_date)/day)) * price.value;
+    }
+    
+    // let start_date = Date.parse(document.querySelector("#datetimepicker1 input").value);
+    // let end_date = Date.parse(document.querySelector("#datetimepicker2 input").value);
+    // let day = 24 * 3600 * 1000;
+    // let price = document.querySelector("#price");
+    // let total = document.querySelector("#total");
+    // let days = Math.round((end_date - start_date)/day) * price.getAttribute("value");
+    // total.removeChild(total.childNodes[0]);
+    // total.appendChild(document.createTextNode(days));
+</script>

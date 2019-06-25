@@ -68,6 +68,15 @@
       <Compile Include="Contexts\ApplicationDbContext.cs"/>
     <Compile Include="Contexts\DataContext.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
+      <Compile Include="Migrations\201906171126237_InitialCreate.cs"/>
+      <Compile Include="Migrations\201906171126237_InitialCreate.Designer.cs">
+          <DependentUpon>201906171126237_InitialCreate.cs</DependentUpon>
+      </Compile>
+      <Compile Include="Migrations\201906241803464_ChangeOrder.cs"/>
+      <Compile Include="Migrations\201906241803464_ChangeOrder.Designer.cs">
+          <DependentUpon>201906241803464_ChangeOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Include="Migrations\Configuration.cs"/>
     <Compile Include="Models\CarEntity.cs" />
     <Compile Include="Models\OrderEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,5 +98,13 @@
       <Name>BusinessLayer</Name>
     </ProjectReference>
   </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Migrations\201906171126237_InitialCreate.resx">
+            <DependentUpon>201906171126237_InitialCreate.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Migrations\201906241803464_ChangeOrder.resx">
+            <DependentUpon>201906241803464_ChangeOrder.cs</DependentUpon>
+        </EmbeddedResource>
+    </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

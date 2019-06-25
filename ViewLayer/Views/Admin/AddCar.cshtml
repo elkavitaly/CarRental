@@ -1,0 +1,63 @@
+@model BusinessLayer.Models.Car
+@Styles.Render("~/Content/adminstyle.css")
+
+<div class="register-form">
+    @{ var url = Model == null ? "AddCar" : "EditCar"; }
+    @using (Html.BeginForm(url, "Admin", FormMethod.Post))
+    {
+        <div>
+            @Html.AntiForgeryToken()
+            @if (Model != null)
+            {
+                <div style="visibility: hidden">
+                    @Html.EditorFor(m => m.Id)
+                </div>
+            }
+            <div class="flex-container">
+                @Html.LabelFor(m => m.Name, new {@class = "register-label"})
+                <div class="register-input">
+                    @Html.EditorFor(m => m.Name)
+                </div>
+            </div>
+            <div class="flex-container">
+                @Html.LabelFor(m => m.Company, new {@class = "register-label"})
+                <div class="register-input">
+                    @Html.EditorFor(m => m.Company)
+                </div>
+            </div>
+            <div class="flex-container">
+                @Html.LabelFor(m => m.Class, new {@class = "register-label"})
+                <div class="register-input">
+                    @Html.EditorFor(m => m.Class)
+                </div>
+            </div>
+            <div class="flex-container">
+                @Html.LabelFor(m => m.Price, new {@class = "register-label"})
+                <div class="register-input">
+                    @Html.EditorFor(m => m.Price)
+                </div>
+            </div>
+            <div class="flex-container">
+                @Html.LabelFor(m => m.Image, new {@class = "register-label"})
+                <div class="register-input">
+                    @Html.EditorFor(m => m.Image)
+                </div>
+            </div>
+            <div class="flex-container">
+                @Html.LabelFor(m => m.Options, new {@class = "register-label"})
+                <div class="register-input">
+                    @Html.EditorFor(m => m.Options)
+                </div>
+            </div>
+            <div class="flex-container">
+                @Html.LabelFor(m => m.Transmission, new {@class = "register-label"})
+                <div class="register-input">
+                    @Html.EditorFor(m => m.Transmission)
+                </div>
+            </div>
+            <div class="register-btn-section">
+                <button type="submit" class="btn-register">Add</button>
+            </div>
+        </div>
+    }
+</div>

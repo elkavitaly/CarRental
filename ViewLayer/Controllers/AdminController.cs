@@ -1,14 +1,18 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLayer.Factory;
 using BusinessLayer.Infrastructure;
+using BusinessLayer.Models;
 using BusinessLayer.Services;
 using BusinessLayer.Utils;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using ViewLayer.Models;
+using ApplicationUser = ViewLayer.Models.ApplicationUser;
 
 namespace ViewLayer.Controllers
 {
@@ -16,8 +20,13 @@ namespace ViewLayer.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService _service;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AdminController() => _service = new AdminService();
+        public AdminController()
+        {
+            _service = new AdminService();
+            _unitOfWork = RepositoryFactory.Instance.Initialize;
+        }
 
         public ActionResult Index()
         {
@@ -29,7 +38,7 @@ namespace ViewLayer.Controllers
             return View();
         }
 
-        public ActionResult ListUsers()
+        public ActionResult UsersList()
         {
             var users = _service.Users().ToList();
             var usersView = new List<ApplicationUserViewModel>();
@@ -87,6 +96,56 @@ namespace ViewLayer.Controllers
         {
             _service.AddRole(name);
             return RedirectToAction("Users");
+        }
+
+        public ActionResult Cars()
+        {
+            return View();
+        }
+
+        public ActionResult CarsList()
+        {
+            return PartialView("CarsList", _unitOfWork.Cars.GetAll());
+        }
+
+        [HttpGet]
+        public ActionResult AddCar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCar(Car car)
+        {
+            if (ModelState.IsValid)
+            {
+                car.Id = Guid.NewGuid();
+                _unitOfWork.Cars.Add(car);
+                _unitOfWork.Save();
+            }
+
+            return RedirectPermanent("Cars");
+        }
+
+        [HttpGet]
+        public ActionResult EditCar(string id)
+        {
+            return View("AddCar", _unitOfWork.Cars.GetById(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditCar(Car car)
+        {
+            _unitOfWork.Cars.Update(car);
+            _unitOfWork.Save();
+            return RedirectPermanent("Cars");
+        }
+
+        public ActionResult DeleteCar(string id)
+        {
+            _unitOfWork.Cars.Delete(id);
+            _unitOfWork.Save();
+            return RedirectPermanent("Cars");
         }
     }
 }

@@ -13,6 +13,11 @@ namespace DataLayer.Repositories
 
         public void Add(IdentityRole item) => _context.Roles.Add(item);
 
+        public void Update(IdentityRole item)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Delete(IdentityRole item) => _context.Roles.Remove(item);
 
         public void Delete(string id) =>

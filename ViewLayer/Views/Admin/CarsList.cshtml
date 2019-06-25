@@ -1,0 +1,40 @@
+@model System.Collections.Generic.IEnumerable<BusinessLayer.Models.Car>
+
+<table class="users-table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Class</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Options</th>
+        <th>Transmission</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var car in Model)
+    {
+        <tr>
+            <td>@car.Id</td>
+            <td>@car.Name</td>
+            <td>@car.Company</td>
+            <td>@car.Class</td>
+            <td>@car.Price</td>
+            <td>@car.Image</td>
+            <td>@car.Options</td>
+            <td>@car.Transmission</td>
+
+            <td>
+                <button type="button" class="edit users-btn-edit-delete" value="@car.Id">
+                    <a href='@Url.Action("EditCar")?id=@car.Id'>Edit</a>
+                </button>
+            </td>
+            <td>
+                <button type="button" class="delete users-btn-edit-delete" value="@car.Id">
+                    <a href='@Url.Action("DeleteCar")?id=@car.Id'>Delete</a>
+                </button>
+            </td>
+        </tr>
+    }
+</table>

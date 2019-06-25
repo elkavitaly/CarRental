@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Models;
@@ -15,12 +16,21 @@ namespace DataLayer.Repositories
 
         public void Add(Car item) => _context.CarEntities.Add(Mapper.Map<CarEntity, Car>(item));
 
+        public void Update(Car item)
+        {
+            Delete(item.Id.ToString("D"));
+            Add(item);
+        }
+
         public void Delete(Car item) => _context.CarEntities.Remove(Mapper.Map<CarEntity, Car>(item));
 
-        public void Delete(string id) =>
-            _context.CarEntities.Remove(_context.CarEntities.Find(id) ?? throw new KeyNotFoundException());
+        public void Delete(string id)
+        {
+            _context.CarEntities.Remove(_context.CarEntities.Find(Guid.Parse(id)) ??
+                                        throw new NullReferenceException());
+        }
 
-        public Car GetById(string id) => Mapper.Map<Car, CarEntity>(_context.CarEntities.Find(id));
+        public Car GetById(string id) => Mapper.Map<Car, CarEntity>(_context.CarEntities.Find(Guid.Parse(id)));
 
         public IEnumerable<Car> GetAll() => Mapper.MapEnumerable<Car, CarEntity>(_context.CarEntities);
     }

@@ -1,3 +1,12 @@
+header {
+    position: relative;
+}
+
+main {
+    margin: 0;
+    min-height: calc(100vh - 200px);
+}
+
 .add-section {
     display: flex;
     justify-content: center;
@@ -109,7 +118,8 @@
 }
 
 .register-btn-section {
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
+    
 }
 
 .btn-register {

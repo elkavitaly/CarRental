@@ -14,6 +14,11 @@ namespace DataLayer.Repositories
 
         public void Add(ApplicationUser item) => _context.Users.Add(item);
 
+        public void Update(ApplicationUser item)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Delete(ApplicationUser item) => _context.Users.Remove(item);
 
         public void Delete(string id) => _context.Users.Remove(GetById(id));
