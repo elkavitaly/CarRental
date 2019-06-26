@@ -56,3 +56,5 @@ C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\ru\System.Web.WebP
 C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\ru\System.Web.WebPages.Razor.resources.dll
 C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\ru\System.Web.Razor.resources.dll
 C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\ru\System.Web.WebPages.Deployment.resources.dll
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\System.ComponentModel.Annotations.xml

@@ -1,0 +1,36 @@
+@Styles.Render("~/Content/adminstyle.css")
+
+<div class="table-user-section" id="table-user-section"></div>
+
+<script>
+    load('@Url.Action("OrdersList")');
+    
+    // $(document).ready(function () {$("body").on("click", ".delete", deleteFunc)});
+    //
+    // function editFunc() {   
+    //     let value = this.value;
+@*    //     request('@Url.Action("EditOrder")?id=' + value); *@
+    // }
+    //
+    // function request(url){
+    //     let request = new XMLHttpRequest();
+    //     request.open("GET", url);
+    //     request.send();
+    //     request.onreadystatechange = function (){
+    //         if(request.readyState === 4 && request.status === 200){
+    //             return request.responseText;
+    //         }
+    //     }
+    // }
+    
+    function load(url){    
+        let request = new XMLHttpRequest();
+        request.open("POST", url);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState === 4 && request.status === 200){
+                document.querySelector("#table-user-section").innerHTML = request.responseText;
+            }
+        }
+    }
+</script>

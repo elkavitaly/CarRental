@@ -10,31 +10,29 @@
 
 <script>
     load('@Url.Action("CarsList")');
-    let editButtons = document.querySelectorAll(".edit");
-    for(let button of editButtons){
-        button.onclick = editFunc;
-    }
     
-    let deleteButtons = document.querySelectorAll(".delete");
-    for(let button of deleteButtons){
-        button.onclick = deleteFunc;
-    }
-    
-    function editFunc() {   
-        let value = this.value;
-        request('@Url.Action("EditCar")', value);
-    }
-    
-    function deleteFunc() {   
-        let value = "?id=" + this.value;
-        request('@Url.Action("DeleteCar")', value);
-    }
-    
-    function request(url, data){
-        let request = new XMLHttpRequest();
-        request.open("GET", url);
-        request.send(data);
-    }
+    // $(document).ready(function () {$("body").on("click", ".delete", deleteFunc)});
+    //
+    // function editFunc() {   
+    //     let value = this.value;
+@*    //     request('@Url.Action("EditCar")?id=' + value); *@
+    // }
+    //
+    // function deleteFunc() {   
+    //     let value = this.value;
+@*    //     document.querySelector("#table-user-section").innerHTML = request('@Url.Action("DeleteCar")?id=' + value); *@
+    // }
+    //
+    // function request(url){
+    //     let request = new XMLHttpRequest();
+    //     request.open("GET", url);
+    //     request.send();
+    //     request.onreadystatechange = function (){
+    //         if(request.readyState === 4 && request.status === 200){
+    //             return request.responseText;
+    //         }
+    //     }
+    // }
     
     function load(url){    
         let request = new XMLHttpRequest();

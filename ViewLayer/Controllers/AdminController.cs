@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Factory;
@@ -146,6 +147,42 @@ namespace ViewLayer.Controllers
             _unitOfWork.Cars.Delete(id);
             _unitOfWork.Save();
             return RedirectPermanent("Cars");
+        }
+
+        public ActionResult Orders()
+        {
+            return View();
+        }
+
+        public ActionResult OrdersList()
+        {
+            var orderList = _unitOfWork.Orders.GetAll();
+            var users = _unitOfWork.Users;
+            foreach (var order in orderList)
+            {
+                order.User = users.GetById(order.UserId.ToString("D"));
+            }
+
+            return PartialView("OrdersList", orderList);
+        }
+
+        public ActionResult DeleteOrder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ActionResult> ConfirmOrder(string id)
+        {
+            var order = _unitOfWork.Orders.GetById(id);
+            var message = new IdentityMessage
+            {
+                Body = "Your order is confirmed.\nOrder number: " + order.Id,
+                Subject = "Car rental",
+                Destination = "dragonwell26@gmail.com"
+            };
+            var emailService = new EmailService();
+            await emailService.SendAsync(message);
+            return RedirectPermanent(Url.Action("Index", "Catalog"));
         }
     }
 }

@@ -29,3 +29,4 @@ C:\Users\drago\source\repos\CarRental\DataLayer\bin\Debug\ru\Microsoft.AspNet.Id
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.InitialCreate.resources
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.csproj.GenerateResource.cache
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.ChangeOrder.resources
+C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.CarsOrders.resources

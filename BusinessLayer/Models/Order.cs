@@ -1,18 +1,26 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLayer.Models
 {
     public class Order
     {
-        public Guid Id { get; set; }
+        [Required] public Guid Id { get; set; }
         public bool Driver { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public double Total { get; set; }
-        public Guid CarEntityId { get; set; }
+        [Required] [DataType(DataType.Date)] public DateTime Start { get; set; }
+        [Required] [DataType(DataType.Date)] public DateTime End { get; set; }
+        [Required] public double Total { get; set; }
+        [Required] public Guid CarEntityId { get; set; }
         public Car Car { get; set; }
-        public Guid UserId { get; set; }
+        [Required] public Guid UserId { get; set; }
+        public ApplicationUser User { get; set; }
+
+        [Required]
+        [StringLength(256, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 3)]
         public string FullName { get; set; }
+
+        [Required]
+        [StringLength(256, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 7)]
         public string Passport { get; set; }
     }
 }

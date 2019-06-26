@@ -19,12 +19,14 @@
                 <div class="label-text">Full name</div>
                 <div class="input">
                     @Html.TextBoxFor(m => m.FullName)
+                    @Html.ValidationMessageFor(m => m.FullName, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="input-container">
                 <div class="label-text">Passport</div>
                 <div class="input">
                     @Html.TextBoxFor(m => m.Passport)
+                    @Html.ValidationMessageFor(m => m.Passport, "", new {@class = "text-danger"})
                 </div>
             </div>
         </div>
@@ -98,13 +100,4 @@
         let total = document.querySelector(".input-total");
         total.value = Math.abs(Math.round((end_date - start_date)/day)) * price.value;
     }
-    
-    // let start_date = Date.parse(document.querySelector("#datetimepicker1 input").value);
-    // let end_date = Date.parse(document.querySelector("#datetimepicker2 input").value);
-    // let day = 24 * 3600 * 1000;
-    // let price = document.querySelector("#price");
-    // let total = document.querySelector("#total");
-    // let days = Math.round((end_date - start_date)/day) * price.getAttribute("value");
-    // total.removeChild(total.childNodes[0]);
-    // total.appendChild(document.createTextNode(days));
 </script>

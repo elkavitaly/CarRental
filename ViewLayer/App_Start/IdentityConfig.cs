@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,8 +16,16 @@ namespace ViewLayer
     {
         public Task SendAsync(IdentityMessage message)
         {
+            var client = new SmtpClient();
+            client.Host = "smtp.gmail.com";
+            var cr = new NetworkCredential("vitalii.volokhovskyi@nure.ua", "Em9Hi9Mb");
+            client.Credentials = cr;
+            client.EnableSsl = true;
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            return client.SendMailAsync("vitalii.volokhovskyi@nure.ua", message.Destination, message.Subject,
+                message.Body);
             // Подключите здесь службу электронной почты для отправки сообщения электронной почты.
-            return Task.FromResult(0);
         }
     }
 
@@ -40,9 +46,11 @@ namespace ViewLayer
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
+            IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager =
+                new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Настройка логики проверки имен пользователей
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -67,10 +75,11 @@ namespace ViewLayer
 
             // Регистрация поставщиков двухфакторной проверки подлинности. Для получения кода проверки пользователя в данном приложении используется телефон и сообщения электронной почты
             // Здесь можно указать собственный поставщик и подключить его.
-            manager.RegisterTwoFactorProvider("Код, полученный по телефону", new PhoneNumberTokenProvider<ApplicationUser>
-            {
-                MessageFormat = "Ваш код безопасности: {0}"
-            });
+            manager.RegisterTwoFactorProvider("Код, полученный по телефону",
+                new PhoneNumberTokenProvider<ApplicationUser>
+                {
+                    MessageFormat = "Ваш код безопасности: {0}"
+                });
             manager.RegisterTwoFactorProvider("Код из сообщения", new EmailTokenProvider<ApplicationUser>
             {
                 Subject = "Код безопасности",
@@ -81,9 +90,10 @@ namespace ViewLayer
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
             return manager;
         }
     }
@@ -91,19 +101,22 @@ namespace ViewLayer
     // Настройка диспетчера входа для приложения.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
+        public ApplicationSignInManager(ApplicationUserManager userManager,
+            IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+            return user.GenerateUserIdentityAsync((ApplicationUserManager) UserManager);
         }
 
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
+        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options,
+            IOwinContext context)
         {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(),
+                context.Authentication);
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 
 namespace ViewLayer.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -23,12 +24,17 @@ namespace ViewLayer.Controllers
         [HttpPost]
         public ActionResult Index(Order order)
         {
-            order.Id = Guid.NewGuid();
-            order.UserId = Guid.Parse(User.Identity.GetUserId());
-            order.CarEntityId = order.Car.Id;
-            _unitOfWork.Orders.Add(order);
-            _unitOfWork.Save();
-            return View();
+            if (ModelState.IsValid)
+            {
+                order.Id = Guid.NewGuid();
+                order.UserId = Guid.Parse(User.Identity.GetUserId());
+                order.CarEntityId = order.Car.Id;
+                _unitOfWork.Orders.Add(order);
+                _unitOfWork.Save();
+                return RedirectPermanent(Url.Action("Index", "Catalog"));
+            }
+
+            return View(order);
         }
     }
 }

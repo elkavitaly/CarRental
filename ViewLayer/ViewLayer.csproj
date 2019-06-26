@@ -219,6 +219,8 @@
       <Content Include="Views\Admin\Cars.cshtml"/>
       <Content Include="Views\Admin\CarsList.cshtml"/>
       <Content Include="Views\Admin\ListUsers.cshtml"/>
+      <Content Include="Views\Admin\Orders.cshtml"/>
+      <Content Include="Views\Admin\OrdersList.cshtml"/>
       <Content Include="Views\Admin\Users.cshtml"/>
       <Content Include="Views\Admin\Index.cshtml"/>
     <Content Include="Views\Catalog\Index.cshtml" />

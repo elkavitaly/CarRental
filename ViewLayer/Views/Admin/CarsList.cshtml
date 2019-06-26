@@ -26,14 +26,10 @@
             <td>@car.Transmission</td>
 
             <td>
-                <button type="button" class="edit users-btn-edit-delete" value="@car.Id">
-                    <a href='@Url.Action("EditCar")?id=@car.Id'>Edit</a>
-                </button>
+                <a href='@Url.Action("EditCar")?id=@car.Id' class="edit-link">Edit</a>
             </td>
             <td>
-                <button type="button" class="delete users-btn-edit-delete" value="@car.Id">
-                    <a href='@Url.Action("DeleteCar")?id=@car.Id'>Delete</a>
-                </button>
+                <a href='@Url.Action("DeleteCar")?id=@car.Id' class="edit-link">Delete</a>
             </td>
         </tr>
     }

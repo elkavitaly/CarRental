@@ -76,6 +76,10 @@
       <Compile Include="Migrations\201906241803464_ChangeOrder.Designer.cs">
           <DependentUpon>201906241803464_ChangeOrder.cs</DependentUpon>
       </Compile>
+      <Compile Include="Migrations\201906251113230_CarsOrders.cs"/>
+      <Compile Include="Migrations\201906251113230_CarsOrders.Designer.cs">
+          <DependentUpon>201906251113230_CarsOrders.cs</DependentUpon>
+      </Compile>
       <Compile Include="Migrations\Configuration.cs"/>
     <Compile Include="Models\CarEntity.cs" />
     <Compile Include="Models\OrderEntity.cs" />
@@ -93,18 +97,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
-      <Project>{388de351-4813-4020-b7b0-3e39adf5b47d}</Project>
-      <Name>BusinessLayer</Name>
-    </ProjectReference>
+      <EmbeddedResource Include="Migrations\201906171126237_InitialCreate.resx">
+          <DependentUpon>201906171126237_InitialCreate.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Include="Migrations\201906241803464_ChangeOrder.resx">
+          <DependentUpon>201906241803464_ChangeOrder.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Include="Migrations\201906251113230_CarsOrders.resx">
+          <DependentUpon>201906251113230_CarsOrders.cs</DependentUpon>
+      </EmbeddedResource>
   </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Migrations\201906171126237_InitialCreate.resx">
-            <DependentUpon>201906171126237_InitialCreate.cs</DependentUpon>
-        </EmbeddedResource>
-        <EmbeddedResource Include="Migrations\201906241803464_ChangeOrder.resx">
-            <DependentUpon>201906241803464_ChangeOrder.cs</DependentUpon>
-        </EmbeddedResource>
+        <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+            <Project>{388de351-4813-4020-b7b0-3e39adf5b47d}</Project>
+            <Name>BusinessLayer</Name>
+        </ProjectReference>
     </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

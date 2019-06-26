@@ -5,6 +5,7 @@ header {
 main {
     margin: 0;
     min-height: calc(100vh - 200px);
+    background-color: #e5e5e5;
 }
 
 .add-section {
@@ -28,6 +29,7 @@ main {
     display: flex;
     width: 100%;
     justify-content: center;
+    margin-top: 30px;
 }
 
 .users-table {
@@ -129,4 +131,14 @@ main {
     border: none;
     background-color: #565656;
 }
+
+.edit-link {
+    color: #030075;
+    font-weight: bolder;
+}
+
+.edit-link:hover {
+    color: #333333;
+}
+
 
