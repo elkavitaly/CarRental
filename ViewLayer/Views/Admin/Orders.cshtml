@@ -5,26 +5,76 @@
 
 <div class="table-user-section" id="table-user-section" style="overflow-x: auto"></div>
 
+<div class="modal" id="decline-model-window">
+    <div class="decline-close">
+        <img src="~/Content/Images/close.png" alt="">
+    </div>
+    <div class="decline-header">
+        <div>
+            Decline order
+        </div>
+        <div class="order-id"></div>
+    </div>
+    <div class="decline-text">
+        <label for="decline-text">Reasons</label>
+        <textarea  id="decline-text" cols="45" rows="7"></textarea>
+    </div>
+    <div class="decline-btn-block">
+        <button type="button" id="decline-btn" class="users-btn-edit-delete">Send</button>
+    </div>
+</div>
+
 <script>
     load('@Url.Action("OrdersList")');
     
-    // $(document).ready(function () {$("body").on("click", ".delete", deleteFunc)});
-    //
-    // function editFunc() {   
-    //     let value = this.value;
-@*    //     request('@Url.Action("EditOrder")?id=' + value); *@
-    // }
-    //
-    // function request(url){
-    //     let request = new XMLHttpRequest();
-    //     request.open("GET", url);
-    //     request.send();
-    //     request.onreadystatechange = function (){
-    //         if(request.readyState === 4 && request.status === 200){
-    //             return request.responseText;
-    //         }
-    //     }
-    // }
+    $(document).ready(function () {$("body").on("click", ".confirm", confirmFunc)});
+    $(document).ready(function () {$("body").on("click", ".decline", declineFunc)});
+    
+    
+    
+    function confirmFunc() {
+        let value = this.getAttribute("value");
+        request('@Url.Action("ConfirmOrder")', value);   
+    }
+    
+    function declineFunc(){
+        let value =  this.getAttribute("value");
+        deleteNodes(document.querySelector(".order-id"));
+        document.querySelector("#decline-text").value = "";
+        let dwindow = document.querySelector("#decline-model-window");
+        dwindow.style.display = "flex";
+        document.querySelector(".order-id").appendChild(document.createTextNode(value));
+        document.querySelector("#decline-btn").value = value;
+        
+        document.querySelector(".decline-close").onclick = function(){
+            dwindow.style.display = "none";
+        };
+        
+        document.querySelector("#decline-btn").onclick = function(){
+            let text = document.querySelector("#decline-text").value;
+            let data = [this.value, text];
+            request('@Url.Action("DeclineOrder")', JSON.stringify(data));
+            document.querySelector("#decline-model-window").style.display = "none";
+        };
+        
+    }
+    
+    function deleteNodes(node){
+        while(node.firstChild){
+            node.removeChild(node.firstChild);
+        }
+    }
+    
+    function request(url, data){
+        let request = new XMLHttpRequest();
+        request.open("POST", url);
+        request.send(data);
+        request.onreadystatechange = function(){
+            if(request.readyState === 4 && request.status === 200){
+               load('@Url.Action("OrdersList")');
+            }
+        }
+    }
     
     function load(url){    
         let request = new XMLHttpRequest();

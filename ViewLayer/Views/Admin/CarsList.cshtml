@@ -26,10 +26,20 @@
             <td>@car.Transmission</td>
 
             <td>
-                <a href='@Url.Action("EditCar")?id=@car.Id' class="edit-link">Edit</a>
+                <div class="order-image">
+                    <a href="@Url.Action("EditCar")?id=@car.Id">
+                        <img src="~/Content/Images/support.png">
+                    </a>
+                </div>
+                @* <a href='@Url.Action("EditCar")?id=@car.Id' class="edit-link">Edit</a> *@
             </td>
             <td>
-                <a href='@Url.Action("DeleteCar")?id=@car.Id' class="edit-link">Delete</a>
+                <div class="order-image delete" value="@car.Id">
+                    @* <a href="@Url.Action("DeleteCar")?id=@car.Id"> *@
+                    <img src="~/Content/Images/trash.png">
+                    @* </a> *@
+                </div>
+                @* <a href='@Url.Action("DeleteCar")?id=@car.Id' class="edit-link">Delete</a> *@
             </td>
         </tr>
     }

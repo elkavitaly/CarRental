@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BusinessLayer.Factory;
@@ -79,13 +78,13 @@ namespace ViewLayer.Controllers
                 _service.AddUserToRole(appUser.Id, role);
             }
 
-            return View("Users");
+            return RedirectPermanent("Users");
         }
 
         public ActionResult DeleteUser(string id)
         {
             _service.DeleteUser(id);
-            return RedirectToAction("Users");
+            return null; //RedirectToAction("Users");
         }
 
         public ActionResult EditUser(string id)
@@ -146,7 +145,7 @@ namespace ViewLayer.Controllers
         {
             _unitOfWork.Cars.Delete(id);
             _unitOfWork.Save();
-            return RedirectPermanent("Cars");
+            return null; //RedirectPermanent("Cars");
         }
 
         public ActionResult Orders()
@@ -171,8 +170,9 @@ namespace ViewLayer.Controllers
             throw new NotImplementedException();
         }
 
-        public async Task<ActionResult> ConfirmOrder(string id)
+        public ActionResult ConfirmOrder()
         {
+            var id = Util.ReadStream(Request.InputStream);
             var order = _unitOfWork.Orders.GetById(id);
             order.Status = "Confirmed";
             _unitOfWork.Orders.Update(order);
@@ -180,11 +180,29 @@ namespace ViewLayer.Controllers
 //            {
 //                Body = "Your order is confirmed.\nOrder number: " + order.Id,
 //                Subject = "Car rental",
-//                Destination = "dragonwell26@gmail.com"
+//                Destination = order.User.Email
 //            };
 //            var emailService = new EmailService();
-            //await emailService.SendAsync(message);
-            return RedirectPermanent(Url.Action("Index", "Catalog"));
+//            await emailService.SendAsync(message);
+            return null;
+        }
+
+        public ActionResult DeclineOrder()
+        {
+            var input = Util.ReadStream(Request.InputStream);
+            var data = Util.Deserialize<string[]>(input);
+            var order = _unitOfWork.Orders.GetById(data[0]);
+            order.Status = "Declined";
+            _unitOfWork.Orders.Update(order);
+//            var message = new IdentityMessage
+//            {
+//                Body = "Order number: " + order.Id + "was declined.\n" + data[1],
+//                Subject = "Car rental",
+//                Destination = order.User.Email
+//            };
+//            var emailService = new EmailService();
+//            await emailService.SendAsync(message);
+            return null;
         }
 
         public ActionResult EditOrder(string id)

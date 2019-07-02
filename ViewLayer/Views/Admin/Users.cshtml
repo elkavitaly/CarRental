@@ -12,30 +12,19 @@
 
 <script>
     load('@Url.Action("UsersList")');
-    let editButtons = document.querySelectorAll(".edit");
-    for(let button of editButtons){
-        button.onclick = editFunc;
-    }
+        
+    $(document).ready(function () {$("body").on("click", ".delete", deleteFunc)});
     
-    let deleteButtons = document.querySelectorAll(".delete");
-    for(let button of deleteButtons){
-        button.onclick = deleteFunc;
-    }
-    
-    function editFunc() {   
-        let value = this.value;
-        request('@Url.Action("EditUser")', value);
-    }
-    
-    function deleteFunc() {   
-        let value = this.value;
-        request('@Url.Action("DeleteUser")', value);
-    }
-    
-    function request(url, data){
+    function deleteFunc(){
+        let value = this.getAttribute("value");
         let request = new XMLHttpRequest();
-        request.open("post", url);
-        request.send(data);
+            request.open("GET", '@Url.Action("DeleteUser")?id=' + value);
+            request.send();
+            request.onreadystatechange = function(){
+                if(request.readyState === 4 && request.status === 200){
+                    load('@Url.Action("UsersList")');
+                }
+            }
     }
     
     function load(url){    
@@ -48,4 +37,43 @@
             }
         }
     }
+
+
+@*    // load('@Url.Action("UsersList")'); *@
+    // let editButtons = document.querySelectorAll(".edit");
+    // for(let button of editButtons){
+    //     button.onclick = editFunc;
+    // }
+    //
+    // let deleteButtons = document.querySelectorAll(".delete");
+    // for(let button of deleteButtons){
+    //     button.onclick = deleteFunc;
+    // }
+    //
+    // function editFunc() {   
+    //     let value = this.value;
+@*    //     request('@Url.Action("EditUser")', value); *@
+    // }
+    //
+    // function deleteFunc() {   
+    //     let value = this.value;
+@*    //     request('@Url.Action("DeleteUser")', value); *@
+    // }
+    //
+    // function request(url, data){
+    //     let request = new XMLHttpRequest();
+    //     request.open("post", url);
+    //     request.send(data);
+    // }
+    //
+    // function load(url){    
+    //     let request = new XMLHttpRequest();
+    //     request.open("POST", url);
+    //     request.send();
+    //     request.onreadystatechange = function(){
+    //         if(request.readyState === 4 && request.status === 200){
+    //             document.querySelector("#table-user-section").innerHTML = request.responseText;
+    //         }
+    //     }
+    // }
 </script>

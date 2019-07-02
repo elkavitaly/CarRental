@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Models;
 using DataLayer.Contexts;
@@ -18,10 +19,22 @@ namespace DataLayer.Repositories
 
         public void Update(Order item)
         {
-//            _context.Entry(item).State = EntityState.Modified;
-            Delete(item.Id.ToString("D"));
-            Add(item);
-//            _context.SaveChanges();
+            var order = _context.OrderEntities.Find(item.Id);
+            var props = order.GetType().GetProperties();
+            foreach (var prop in props)
+            {
+                var name = prop.Name;
+                if (name.Equals("Id") || name.Equals("CarEntityId") || name.Equals("CarEntity"))
+                {
+                    continue;
+                }
+
+                var value = item.GetType().GetProperty(name)?.GetValue(item);
+                order.GetType().GetProperty(name)?.SetValue(order, value);
+            }
+
+            _context.Entry(order).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(Order item) => _context.OrderEntities.Remove(Mapper.Map<OrderEntity, Order>(item));

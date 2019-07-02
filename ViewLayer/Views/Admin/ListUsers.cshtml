@@ -15,14 +15,22 @@
             <td>@user.Email</td>
             <td>@user.Roles</td>
             <td>
-                <button type="button" class="edit users-btn-edit-delete" value="@user.Id">
-                    <a href='@Url.Action("EditUser")?id=@user.Id'>Edit</a>
-                </button>
+                <div class="order-image">
+                    <a href="@Url.Action("EditUser")?id=@user.Id">
+                        <img src="~/Content/Images/support.png">
+                    </a>
+                </div>
+                @* <button type="button" class="edit users-btn-edit-delete" value="@user.Id"> *@
+                @*     <a href='@Url.Action("EditUser")?id=@user.Id'>Edit</a> *@
+                @* </button> *@
             </td>
             <td>
-                <button type="button" class="delete users-btn-edit-delete" value="@user.Id">
-                    <a href='@Url.Action("DeleteUser")?id=@user.Id'>Delete</a>
-                </button>
+                <div class="order-image delete" value="@user.Id">
+                    <img src="~/Content/Images/trash.png">
+                </div>
+                @* <button type="button" class="delete users-btn-edit-delete" value="@user.Id"> *@
+                @*     <a href='@Url.Action("DeleteUser")?id=@user.Id'>Delete</a> *@
+                @* </button> *@
             </td>
         </tr>
     }

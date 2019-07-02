@@ -28,9 +28,19 @@
             <td>@order.Total</td>
             <td class="status-td">@order.Status</td>
             <td>@order.DateTime</td>
-            <td><a href='@Url.Action("EditOrder")?id=@order.Id' class="edit-link">Edit</a>
             <td>
-                <a href='@Url.Action("DeleteOrder")?id=@order.Id' class="edit-link">Delete</a>
+                <div class="order-image confirm" value="@order.Id">
+                    <img src="https://img.icons8.com/material/24/000000/ok-message.png">
+                </div>
+                @* <button type="button" value="@order.Id" class="confirm users-btn-edit-delete">Confirm</button> *@
+                @* <a href='@Url.Action("ConfirmOrder")?id=@order.Id' class="edit-link">Edit</a> *@
+            </td>
+            <td>
+                <div class="order-image decline" value="@order.Id">
+                    <img src="https://img.icons8.com/ios/50/000000/multiply-filled.png">
+                </div>
+                @* <button type="button" value="@order.Id" class="decline users-btn-edit-delete">Decline</button> *@
+                @* <a href='@Url.Action("DeleteOrder")?id=@order.Id' class="edit-link">Delete</a> *@
             </td>
         </tr>
     }
