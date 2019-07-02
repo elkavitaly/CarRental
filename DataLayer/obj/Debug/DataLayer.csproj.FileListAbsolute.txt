@@ -30,3 +30,4 @@ C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.I
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.csproj.GenerateResource.cache
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.ChangeOrder.resources
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.CarsOrders.resources
+C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.OrderModel.resources

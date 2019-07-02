@@ -29,6 +29,7 @@ namespace ViewLayer.Controllers
                 order.Id = Guid.NewGuid();
                 order.UserId = Guid.Parse(User.Identity.GetUserId());
                 order.CarEntityId = order.Car.Id;
+                order.DateTime = DateTime.UtcNow;
                 _unitOfWork.Orders.Add(order);
                 _unitOfWork.Save();
                 return RedirectPermanent(Url.Action("Index", "Catalog"));

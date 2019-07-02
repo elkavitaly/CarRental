@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CarRental</title>
+    @Styles.Render("~/Content/style.css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+<header>
+    <div class="col-50">
+        <div class="logo-text">
+            <p>CarRental</p>
+        </div>
+    </div>
+    <div class="col-50">
+        <div class="menu-item">
+            @Html.ActionLink("Main", "Index", "Admin")
+        </div>
+        <div class="menu-item">
+            @Html.ActionLink("Orders", "Orders", "Admin")
+        </div>
+        <div class="menu-item">
+            @Html.ActionLink("Cars", "Cars", "Admin")
+        </div>
+        <div class="menu-item">
+            @Html.ActionLink("Users", "Users", "Admin")
+        </div>
+    </div>
+</header>
+<main>
+    @RenderBody()
+</main>
+</body>
+</html>

@@ -218,6 +218,7 @@
       <Content Include="Views\Admin\AddUser.cshtml"/>
       <Content Include="Views\Admin\Cars.cshtml"/>
       <Content Include="Views\Admin\CarsList.cshtml"/>
+      <Content Include="Views\Admin\EditOrder.cshtml"/>
       <Content Include="Views\Admin\ListUsers.cshtml"/>
       <Content Include="Views\Admin\Orders.cshtml"/>
       <Content Include="Views\Admin\OrdersList.cshtml"/>
@@ -226,6 +227,7 @@
     <Content Include="Views\Catalog\Index.cshtml" />
     <Content Include="Views\Catalog\ListItems.cshtml" />
       <Content Include="Views\Order\Index.cshtml"/>
+      <Content Include="Views\Shared\_LayoutAdmin.cshtml"/>
     <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -1,6 +1,9 @@
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
 @Styles.Render("~/Content/adminstyle.css")
 
-<div class="table-user-section" id="table-user-section"></div>
+<div class="table-user-section" id="table-user-section" style="overflow-x: auto"></div>
 
 <script>
     load('@Url.Action("OrdersList")');
@@ -30,6 +33,22 @@
         request.onreadystatechange = function(){
             if(request.readyState === 4 && request.status === 200){
                 document.querySelector("#table-user-section").innerHTML = request.responseText;
+                statusColor();
+            }
+        }
+    }
+    
+    function statusColor(){
+        let tds = document.querySelectorAll(".status-td");
+        for(let element of tds){
+            if(element.textContent === "Confirmed"){
+                element.style.backgroundColor = "#37b237";
+            }
+            else if(element.textContent === "Declined"){
+                element.style.backgroundColor = "#d85252";
+            }
+            else{
+                element.style.backgroundColor = "#fffb47";
             }
         }
     }

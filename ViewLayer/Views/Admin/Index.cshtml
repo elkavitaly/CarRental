@@ -1,5 +1,7 @@
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
 <div>
     <div>Admin Panel</div>
     <div>@Html.ActionLink("Users", "Users", "Admin", new {@class = "admin-link"})</div>
     <div>@Html.ActionLink("Cars", "Cars", "Admin", new {@class = "admin-link"})</div>
+    <div>@Html.ActionLink("Cars", "Orders", "Admin", new {@class = "admin-link"})</div>
 </div>

@@ -33,7 +33,9 @@ namespace DataLayer.Tools
                     Passport = order.Passport,
                     Id = order.Id,
                     UserId = order.UserId,
-                    Total = order.Total
+                    Total = order.Total,
+                    DateTime = order.DateTime,
+                    Status = order.Status
                 })
                 .ToList();
         }

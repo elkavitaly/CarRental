@@ -18,8 +18,10 @@ namespace DataLayer.Repositories
 
         public void Update(Order item)
         {
+//            _context.Entry(item).State = EntityState.Modified;
             Delete(item.Id.ToString("D"));
             Add(item);
+//            _context.SaveChanges();
         }
 
         public void Delete(Order item) => _context.OrderEntities.Remove(Mapper.Map<OrderEntity, Order>(item));

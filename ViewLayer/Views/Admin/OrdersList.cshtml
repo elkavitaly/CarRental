@@ -10,6 +10,8 @@
         <th>Start date</th>
         <th>End date</th>
         <th>Total</th>
+        <th>Status</th>
+        <th>Date</th>
         <th></th>
         <th></th>
     </tr>
@@ -24,8 +26,9 @@
             <td>@order.Start</td>
             <td>@order.End</td>
             <td>@order.Total</td>
-            <td>
-            <a href='@Url.Action("ConfirmOrder")?id=@order.Id' class="edit-link">Edit</a>
+            <td class="status-td">@order.Status</td>
+            <td>@order.DateTime</td>
+            <td><a href='@Url.Action("EditOrder")?id=@order.Id' class="edit-link">Edit</a>
             <td>
                 <a href='@Url.Action("DeleteOrder")?id=@order.Id' class="edit-link">Delete</a>
             </td>

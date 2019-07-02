@@ -80,6 +80,10 @@
       <Compile Include="Migrations\201906251113230_CarsOrders.Designer.cs">
           <DependentUpon>201906251113230_CarsOrders.cs</DependentUpon>
       </Compile>
+      <Compile Include="Migrations\201906260726321_OrderModel.cs"/>
+      <Compile Include="Migrations\201906260726321_OrderModel.Designer.cs">
+          <DependentUpon>201906260726321_OrderModel.cs</DependentUpon>
+      </Compile>
       <Compile Include="Migrations\Configuration.cs"/>
     <Compile Include="Models\CarEntity.cs" />
     <Compile Include="Models\OrderEntity.cs" />
@@ -105,6 +109,9 @@
       </EmbeddedResource>
       <EmbeddedResource Include="Migrations\201906251113230_CarsOrders.resx">
           <DependentUpon>201906251113230_CarsOrders.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Include="Migrations\201906260726321_OrderModel.resx">
+          <DependentUpon>201906260726321_OrderModel.cs</DependentUpon>
       </EmbeddedResource>
   </ItemGroup>
     <ItemGroup>

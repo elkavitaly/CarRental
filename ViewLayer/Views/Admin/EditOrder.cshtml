@@ -1,0 +1,89 @@
+@model BusinessLayer.Models.Order
+
+@Styles.Render("~/Content/adminstyle.css")
+
+@Html.TextBoxFor(m => m.Car.Id, new {@style = "visibility: hidden"})
+
+<div class="edit-form-order">
+    <div class="input-container">
+        <div class="label-text">
+            Order #
+        </div>
+        <div class="order-number">
+            @Html.TextBoxFor(m => m.Car.Id, new {@class = "label-input"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Name</div>
+        <div class="input">
+            @Html.TextBoxFor(m => m.Car.Name,
+                new {@class = "label-input"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Class</div>
+        <div class="input">
+            @Html.TextBoxFor(m => m.Car.Class, new {@class = "label-input"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Full name</div>
+        <div class="input">
+            @Html.TextBoxFor(m => m.FullName, new {@class = "label-input"})
+            @Html.ValidationMessageFor(m => m.FullName, "", new {@class = "text-danger"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Passport</div>
+        <div class="input">
+            @Html.TextBoxFor(m => m.Passport, new {@class = "label-input"})
+            @Html.ValidationMessageFor(m => m.Passport, "", new {@class = "text-danger"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Price</div>
+        <div class="input">
+            @Html.TextBoxFor(m => m.Car.Price, new {@class = "label-input", @id = "price"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Date start</div>
+        <div class="input">
+            @Html.TextBoxFor(m => m.Start, new {@id = "date_start", @class = "label-input"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Date end</div>
+        <div class="input">
+            @Html.TextBoxFor(m => m.End, new {@id = "date_end", @class = "label-input"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Driver</div>
+        <div class="checkbox-input">
+            @Html.CheckBoxFor(m => m.Driver, new {@class = "label-input"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="label-text">Total</div>
+        <div class="input" id="total" value="200">
+            @Html.TextBoxFor(m => m.Total, new {@class = "label-input input-total"})
+        </div>
+    </div>
+    <div class="input-container">
+        <div class="input">
+            <button type="submit">Order</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", ready);
+    
+    function ready(){
+        let inputs = document.querySelectorAll(".label-input");
+        for(let input of inputs){
+            input.readOnly = true;
+        }
+    }
+</script>

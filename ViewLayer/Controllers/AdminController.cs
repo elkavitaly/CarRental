@@ -174,15 +174,24 @@ namespace ViewLayer.Controllers
         public async Task<ActionResult> ConfirmOrder(string id)
         {
             var order = _unitOfWork.Orders.GetById(id);
-            var message = new IdentityMessage
-            {
-                Body = "Your order is confirmed.\nOrder number: " + order.Id,
-                Subject = "Car rental",
-                Destination = "dragonwell26@gmail.com"
-            };
-            var emailService = new EmailService();
-            await emailService.SendAsync(message);
+            order.Status = "Confirmed";
+            _unitOfWork.Orders.Update(order);
+//            var message = new IdentityMessage
+//            {
+//                Body = "Your order is confirmed.\nOrder number: " + order.Id,
+//                Subject = "Car rental",
+//                Destination = "dragonwell26@gmail.com"
+//            };
+//            var emailService = new EmailService();
+            //await emailService.SendAsync(message);
             return RedirectPermanent(Url.Action("Index", "Catalog"));
+        }
+
+        public ActionResult EditOrder(string id)
+        {
+            var order = _unitOfWork.Orders.GetById(id);
+            order.Car = _unitOfWork.Cars.GetById(order.CarEntityId.ToString("D"));
+            return View(order);
         }
     }
 }

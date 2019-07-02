@@ -6,12 +6,23 @@ namespace BusinessLayer.Models
     public class Order
     {
         [Required] public Guid Id { get; set; }
+
         public bool Driver { get; set; }
+
+        public DateTime DateTime { get; set; }
+
+        public string Status { get; set; }
+
         [Required] [DataType(DataType.Date)] public DateTime Start { get; set; }
+
         [Required] [DataType(DataType.Date)] public DateTime End { get; set; }
+
         [Required] public double Total { get; set; }
+
         [Required] public Guid CarEntityId { get; set; }
+
         public Car Car { get; set; }
+
         [Required] public Guid UserId { get; set; }
         public ApplicationUser User { get; set; }
 
