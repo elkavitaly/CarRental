@@ -49,9 +49,17 @@
           <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       </Reference>
     <Reference Include="Microsoft.CSharp" />
+      <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c">
+          <HintPath>..\packages\NLog.4.6.5\lib\net45\NLog.dll</HintPath>
+          <Private>True</Private>
+      </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+      <Reference Include="System.IO.Compression"/>
+      <Reference Include="System.Runtime.Serialization"/>
+      <Reference Include="System.ServiceModel"/>
+      <Reference Include="System.Transactions"/>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -183,6 +191,7 @@
       <Compile Include="Models\ApplicationUserViewModel.cs"/>
     <Compile Include="Models\FilterViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+      <Compile Include="Models\LoggerFactory.cs"/>
     <Compile Include="Models\ManageViewModels.cs" />
       <Compile Include="Models\UserRegisterViewModel.cs"/>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -203,6 +212,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+      <None Include="NLog.config"/>
+      <None Include="NLog.xsd"/>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

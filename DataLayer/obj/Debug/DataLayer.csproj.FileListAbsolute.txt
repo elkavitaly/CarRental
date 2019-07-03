@@ -31,3 +31,5 @@ C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.csproj.Gener
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.ChangeOrder.resources
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.CarsOrders.resources
 C:\Users\drago\source\repos\CarRental\DataLayer\obj\Debug\DataLayer.Migrations.OrderModel.resources
+C:\Users\drago\source\repos\CarRental\DataLayer\bin\Debug\NLog.dll
+C:\Users\drago\source\repos\CarRental\DataLayer\bin\Debug\NLog.xml

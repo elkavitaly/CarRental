@@ -58,3 +58,5 @@ C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\ru\System.Web.Razo
 C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\ru\System.Web.WebPages.Deployment.resources.dll
 C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\System.ComponentModel.Annotations.dll
 C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\System.ComponentModel.Annotations.xml
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\NLog.dll
+C:\Users\drago\source\repos\CarRental\BusinessLayer\bin\Debug\NLog.xml

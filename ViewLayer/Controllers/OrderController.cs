@@ -4,6 +4,7 @@ using BusinessLayer.Factory;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Models;
 using Microsoft.AspNet.Identity;
+using ViewLayer.Models;
 
 namespace ViewLayer.Controllers
 {
@@ -24,15 +25,24 @@ namespace ViewLayer.Controllers
         [HttpPost]
         public ActionResult Index(Order order)
         {
+            LoggerFactory.Logger.Info("Making order");
             if (ModelState.IsValid)
             {
-                order.Id = Guid.NewGuid();
-                order.UserId = Guid.Parse(User.Identity.GetUserId());
-                order.CarEntityId = order.Car.Id;
-                order.DateTime = DateTime.UtcNow;
-                _unitOfWork.Orders.Add(order);
-                _unitOfWork.Save();
-                return RedirectPermanent(Url.Action("Index", "Catalog"));
+                try
+                {
+                    order.Id = Guid.NewGuid();
+                    order.UserId = Guid.Parse(User.Identity.GetUserId());
+                    order.CarEntityId = order.Car.Id;
+                    order.DateTime = DateTime.UtcNow;
+                    _unitOfWork.Orders.Add(order);
+                    _unitOfWork.Save();
+                    LoggerFactory.Logger.Info("Order was made. Id: {0}", order.Id);
+                    return RedirectPermanent(Url.Action("Index", "Catalog"));
+                }
+                catch (Exception e)
+                {
+                    LoggerFactory.Logger.Error("Order wasn't made. Message: {0}", e.Message);
+                }
             }
 
             return View(order);

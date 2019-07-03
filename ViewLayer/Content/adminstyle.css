@@ -56,7 +56,7 @@ main {
 .users-table td {
     border: 1px solid grey;
     text-align: center;
-}   
+}
 
 .users-btn-edit-delete {
     height: 30px;
@@ -72,15 +72,31 @@ main {
     justify-content: center;
 }
 
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .flex-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .register-label {
     margin-top: 20px;
     font-size: 20px;
     margin-left: 30px;
+}
+
+.register-input {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .register-input input {
@@ -103,7 +119,7 @@ main {
 .role-list {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -131,10 +147,11 @@ main {
 
 .register-btn-section {
     margin: 20px 0 20px 0;
-    
+
 }
 
 .btn-register {
+    margin-top: 20px;
     height: 40px;
     width: 150px;
     border-radius: 3px;
@@ -257,6 +274,12 @@ main {
 
 .order-image img {
     height: 30px;
+}
+
+.field-validation-error {
+    color: red;
+    font-size: 10px;
+    font-weight: bold;
 }
 
 

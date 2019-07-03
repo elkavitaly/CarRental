@@ -1,5 +1,7 @@
 @model BusinessLayer.Models.Order
+
 @Styles.Render("~/Content/orderstyle.css")
+@Scripts.Render("~/Scripts/")
 
 @using (Html.BeginForm("Index", "Order", FormMethod.Post))
 {
@@ -9,86 +11,123 @@
         <div class="col-50-order">
             <div class="input-container">
                 <div class="label-text">Name</div>
-                @Html.TextBoxFor(m => m.Car.Name, new {@readonly = "readonly", @class = "label-input"})
             </div>
             <div class="input-container">
                 <div class="label-text">Class</div>
-                @Html.TextBoxFor(m => m.Car.Class, new {@readonly = "readonly", @class = "label-input"})
             </div>
             <div class="input-container">
                 <div class="label-text">Full name</div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Passport</div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Price</div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Date start</div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Date end</div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Driver</div>
+            </div>
+            <div class="input-container">
+                <div class="label-text">Total</div>
+            </div>
+        </div>
+        <div class="col-50-order">
+            <div class="input-container">
+                @Html.TextBoxFor(m => m.Car.Name, new {@readonly = "readonly", @class = "label-input"})
+            </div>
+            <div class="input-container">
+                @Html.TextBoxFor(m => m.Car.Class, new {@readonly = "readonly", @class = "label-input"})
+            </div>
+            <div class="input-container">
                 <div class="input">
                     @Html.TextBoxFor(m => m.FullName)
                     @Html.ValidationMessageFor(m => m.FullName, "", new {@class = "text-danger"})
                 </div>
             </div>
             <div class="input-container">
-                <div class="label-text">Passport</div>
                 <div class="input">
                     @Html.TextBoxFor(m => m.Passport)
                     @Html.ValidationMessageFor(m => m.Passport, "", new {@class = "text-danger"})
                 </div>
             </div>
-        </div>
-        <div class="col-50-order">
             <div class="input-container">
-                <div class="label-text">Price</div>
                 @Html.TextBoxFor(m => m.Car.Price, new {@readonly = "readonly", @class = "label-input", @id = "price"})
             </div>
             <div class="input-container">
-                <div class="label-text">Date start</div>
                 <div class="input">
                     @Html.TextBoxFor(m => m.Start, new {@type = "date", @id = "date_start"})
+                    @Html.ValidationMessageFor(m => m.Start)
                 </div>
             </div>
             <div class="input-container">
-                <div class="label-text">Date end</div>
                 <div class="input">
                     @Html.TextBoxFor(m => m.End, new {@type = "date", @id = "date_end"})
                 </div>
             </div>
             <div class="input-container">
-                <div class="label-text">Driver</div>
                 <div class="checkbox-input">
                     @Html.CheckBoxFor(m => m.Driver)
                 </div>
             </div>
             <div class="input-container">
-                <div class="label-text">Total</div>
-                <div class="input" id="total" value="200">
-                    @Html.TextBoxFor(m => m.Total, new {@readonly = "readonly", @class = "label-input input-total"})
-                </div>
+                @Html.TextBoxFor(m => m.Total, new {@readonly = "readonly", @class = "label-input input-total"})
             </div>
-            <div class="input-container">
-                <div class="input">
-                    <button type="submit">Order</button>
-                </div>
-            </div>
+            <button type="submit" class="order-button-btn">Order</button>
         </div>
+
     </div>
 }
 <script>    
-    let date = new Date(Date.now());
-    let dayStart = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    let month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
-    let dayEnd= date.getDate() < 10 ? "0" + (date.getDate() + 1) : (date.getDate() + 1);
-    let startDate = date.getFullYear() + "-" + month + "-" +  dayStart;
-    let endDate = date.getFullYear() + "-" + month + "-" +  dayEnd;
-    let start_date = document.querySelector("#date_start");
-    start_date.onchange = startDateChanged;
-    start_date.value = startDate;
-    let end_date = document.querySelector("#date_end");
-    end_date.onchange = endDateChanged;
-    end_date.value = endDate;
-    countSum();
+    initializeDate();
+
+    function initializeDate(){
+        let date = new Date(Date.now());
+        let dayStart = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        let month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+        let dayEnd = date.getDate() < 10 ? "0" + (date.getDate() + 1) : (date.getDate() + 1);
+        let startDate = date.getFullYear() + "-" + month + "-" +  dayStart;
+        let endDate = date.getFullYear() + "-" + month + "-" +  dayEnd;
+        let start_date = document.querySelector("#date_start");
+        start_date.onchange = startDateChanged;
+        start_date.value = startDate;
+        let end_date = document.querySelector("#date_end");
+        end_date.onchange = endDateChanged;
+        end_date.value = endDate;
+        countSum();
+    }
+    
+    function convertDate(date){
+        let dayStart = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        let month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+        let dayEnd = date.getDate() < 10 ? "0" + (date.getDate() + 1) : (date.getDate() + 1);
+        return date.getFullYear() + "-" + month + "-" +  dayStart;
+    }
 
     function startDateChanged() {
-        startDate = this.value;
+        let startDate = document.querySelector("#date_start").value;
+        let date = Date.parse(startDate);
+        let todayDate = Date.parse(new Date(Date.now()));
+        if(todayDate > date){
+            document.querySelector("#date_start").value = convertDate(new Date(Date.now()));
+        }
+        endDateChanged();
         countSum();
     }
     
     function endDateChanged() {
-        endDate = this.value;
+        let endDate = Date.parse(document.querySelector("#date_end").value);
+        let startDate = Date.parse(document.querySelector("#date_start").value);
+        if(endDate <= startDate){
+            let newDate = new Date(startDate);
+            newDate.setDate(newDate.getDate() + 1);
+            document.querySelector("#date_end").value = convertDate(newDate);
+        }
         countSum();
     }
     

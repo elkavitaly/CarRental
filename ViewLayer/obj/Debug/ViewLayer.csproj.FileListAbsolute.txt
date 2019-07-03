@@ -124,3 +124,5 @@ C:\Users\drago\source\repos\CarRental\ViewLayer\bin\DataLayer.pdb
 C:\Users\drago\source\repos\CarRental\ViewLayer\bin\DataLayer.dll.config
 C:\Users\drago\source\repos\CarRental\ViewLayer\bin\AutoMapper.pdb
 C:\Users\drago\source\repos\CarRental\ViewLayer\bin\AutoMapper.xml
+C:\Users\drago\source\repos\CarRental\ViewLayer\bin\NLog.dll
+C:\Users\drago\source\repos\CarRental\ViewLayer\bin\NLog.xml

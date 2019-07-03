@@ -14,15 +14,16 @@ form {
     width: 70%;
     margin-left: auto;
     margin-right: auto;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .input-container {
     display: flex;
     width: 80%;
-    height: 40px;
-    justify-content: space-around;
+    height: 70px;
+    justify-content: space-between;
     margin-top: 10px;
+    align-items: center;
 }
 
 .label-text {
@@ -35,12 +36,15 @@ form {
 
 .input, .checkbox-input {
     width: 180px;
-    height: 30px;
+    height: 100%;
     font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .input input {
-    width: 100%;
+    width: 180px;
     height: 30px;
     border: 1px solid grey;
     border-radius: 3px;
@@ -49,4 +53,28 @@ form {
 .checkbox-input input {
     height: 20px;
     width: 20px;
+}
+
+.label-input {
+    border: none;
+    font-size: 20px;
+    text-align: center;
+}
+
+.order-button-btn {
+    margin: 25px 0 20px 0;
+    height: 40px;
+    width: 120px;
+    border-radius: 3px;
+    border: none;
+    font-size: 18px;
+    color: white;
+    background-color: #ff3232;
+}
+
+.field-validation-error {
+    margin-left: 20px;
+    color: red;
+    font-size: 10px;
+    font-weight: bold;
 }

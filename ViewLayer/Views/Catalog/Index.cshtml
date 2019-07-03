@@ -3,13 +3,24 @@
 
 
 <div class="catalog-page">
-    <div class="sorting">
-        <div class="sorting-header">Sort By</div>
-        <select id="sort">
-            <option value="price_up">Price Up</option>
-            <option value="price_down">Price Down</option>
-            <option value="name">Name</option>
-        </select>
+    <div class="catalog-tools">
+
+        <div class="search">
+            <div class="sorting-header">Search</div>
+            <input type="text" class="search-input">
+            <div class="search-images">
+                <img src="~/Content/Images/search.png" class="search-btn">
+                <img src="~/Content/Images/delete.png" class="clear-btn">
+            </div>
+        </div>
+        <div class="sorting">
+            <div class="sorting-header">Sort By</div>
+            <select id="sort">
+                <option value="price_up">Price Up</option>
+                <option value="price_down">Price Down</option>
+                <option value="name">Name</option>
+            </select>
+        </div>
     </div>
     <div class="cols-container">
         <div class="col-20">
@@ -36,6 +47,34 @@
 </div>
 <script>
     load(null, document.querySelector("#sort").value, '@Url.Action("Filter")');
+    
+    document.querySelector(".search-btn").onclick = search;
+    document.querySelector(".clear-btn").onclick = clear;
+
+    function clear(){
+        document.querySelector(".search-input").value = "";
+        load(null, document.querySelector("#sort").value, '@Url.Action("Filter")');
+    }
+    
+    function search(){
+        let value = document.querySelector(".search-input").value;
+        let list = document.querySelector("#list");
+        while(list.firstChild){
+            list.removeChild(list.firstChild);
+        }
+        request('@Url.Action("Search")', value);
+    }
+    
+    function request(url, data){
+        let request = new XMLHttpRequest();
+        request.open("POST", url);
+        request.send(data);
+        request.onreadystatechange = function(){
+            if(request.readyState === 4 && request.status === 200){
+                document.querySelector("#list").innerHTML = request.responseText;
+            }
+        }
+    }
     
     let select  = document.querySelector("#sort");
     select.addEventListener("change", function(){

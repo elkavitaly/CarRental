@@ -12,5 +12,7 @@ namespace BusinessLayer.Infrastructure
         IEnumerable<Car> Sort(IEnumerable<Car> cars, string parameter);
 
         Dictionary<string, List<string>> FilterParameters();
+
+        IEnumerable<T> Search<T>(IEnumerable<T> cars, string pattern);
     }
 }

@@ -65,6 +65,28 @@ namespace BusinessLayer.Services
             return dict;
         }
 
+        public IEnumerable<T> Search<T>(IEnumerable<T> items, string pattern)
+        {
+            var result = new List<T>();
+            var properties = typeof(T).GetProperties();
+
+            foreach (var item in items)
+            {
+                foreach (var property in properties)
+                {
+                    if (item.GetType().GetProperty(property.Name).GetValue(item).ToString().Contains(pattern))
+                    {
+                        if (!result.Contains(item))
+                        {
+                            result.Add(item);
+                        }
+                    }
+                }
+            }
+
+            return result.Distinct();
+        }
+
         public IEnumerable<Car> Sort(IEnumerable<Car> cars, string parameter)
         {
             switch (parameter)

@@ -2,25 +2,31 @@
 @{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
 
 @Styles.Render("~/Content/adminstyle.css")
+@Scripts.Render("~/Scripts/")
+
 <div class="register-form">
-    <div>
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
         <div class="flex-container">
             @Html.LabelFor(m => m.Email, new {@class = "register-label"})
             <div class="register-input">
                 @Html.EditorFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
             </div>
         </div>
         <div class="flex-container">
             @Html.LabelFor(m => m.Password, new {@class = "register-label"})
             <div class="register-input">
-                @Html.EditorFor(m => m.Password)
+                @Html.EditorFor(m => m.Password, new {@type = "password"})
+                @Html.ValidationMessageFor(m => m.Password, "")
             </div>
         </div>
         <div class="flex-container">
             @Html.LabelFor(m => m.ConfirmPassword, new {@class = "register-label"})
             <div class="register-input">
                 @Html.EditorFor(m => m.ConfirmPassword)
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "")
             </div>
         </div>
         <div class="flex-container">
@@ -41,7 +47,7 @@
         <div class="register-btn-section">
             <button type="button" class="btn-register">Register</button>
         </div>
-    </div>
+    }
 </div>
 
 <script>
@@ -50,6 +56,37 @@
     
     let form = document.querySelector(".btn-register");
     form.onclick = submitForm;
+    
+    document.querySelector("#Password").onchange = checkPassword;
+    
+    function checkPassword() {
+        let value = this.value;
+        let request = new XMLHttpRequest();
+        request.open("POST", '@Url.Action("ValidatePassword")?password=' + value);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState === 4 && request.status === 200){
+                validateMessage(request.responseText);
+            }
+        }
+        
+    }
+    
+    function validateMessage(value){
+        let node = document.querySelector("#Password").parentNode;
+        let error = node.querySelector(".field-validation-error");
+        if(error){
+            node.removeChild(error);
+        }
+        
+        if(value === "False"){
+            
+            let message = document.createElement("span");
+            message.appendChild(document.createTextNode("The password must have at least one non-alphanumeric or non-numeric character. The password must have at least one digit (0-9). The password must have at least one uppercase character (A-Z)"));
+            message.className = "field-validation-error";
+            node.appendChild(message)
+        }
+    }
         
     function add(){
         let selectValue = document.querySelector(".select-role").value;
@@ -103,6 +140,16 @@
         let email = document.querySelector("#Email").value;
         let password = document.querySelector("#Password").value;
         let confirmPassword = document.querySelector("#ConfirmPassword").value;
+        let errors = document.querySelectorAll(".field-validation-error");
+        let flag = true;
+        for(let error of errors){
+            if(error.firstChild){
+                flag = false;
+            }
+        }
+        if(!flag){
+            return;
+        }
         let roles = document.querySelectorAll(".Roles");
         let roleNames = [];
         

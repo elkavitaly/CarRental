@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using DataLayer.Repositories;
+using ViewLayer.Models;
 
 namespace ViewLayer
 {
@@ -15,6 +16,7 @@ namespace ViewLayer
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RepositoryFactoryInitializer.Initialize();
+            LoggerFactory.Initialize();
         }
     }
 }

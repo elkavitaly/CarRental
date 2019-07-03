@@ -40,19 +40,29 @@ namespace ViewLayer.Controllers
 
         public ActionResult UsersList()
         {
-            var users = _service.Users().ToList();
+            LoggerFactory.Logger.Info("Users list");
             var usersView = new List<ApplicationUserViewModel>();
-            foreach (var user in users)
+            try
             {
-                var roles = _service.GetRoles(user.Id);
-                var sb = new StringBuilder();
-                foreach (var role in roles)
+                var users = _service.Users().ToList();
+                foreach (var user in users)
                 {
-                    sb.Append(role).Append(" ");
-                }
+                    var roles = _service.GetRoles(user.Id);
+                    var sb = new StringBuilder();
+                    foreach (var role in roles)
+                    {
+                        sb.Append(role).Append(" ");
+                    }
 
-                usersView.Add(new ApplicationUserViewModel() {Email = user.Email, Id = user.Id, Roles = sb.ToString()});
+                    usersView.Add(new ApplicationUserViewModel()
+                        {Email = user.Email, Id = user.Id, Roles = sb.ToString()});
+                }
             }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("Users list wasn't formed. Message: {0}", e.Message);
+            }
+
 
             return PartialView("ListUsers", usersView);
         }
@@ -64,26 +74,51 @@ namespace ViewLayer.Controllers
             return View();
         }
 
-        // add validation of model
         [HttpPost]
         public ActionResult AddUser(UserRegisterViewModel model)
         {
-            var obj = Util.ReadStream(Request.InputStream);
-            var user = Util.Deserialize<UserRegisterViewModel>(obj);
-
-            var appUser = new ApplicationUser {UserName = user.Email, Email = user.Email};
-            HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Create(appUser, user.Password);
-            foreach (var role in user.Roles)
+            try
             {
-                _service.AddUserToRole(appUser.Id, role);
+                LoggerFactory.Logger.Info("Adding new user");
+                var obj = Util.ReadStream(Request.InputStream);
+                var user = Util.Deserialize<UserRegisterViewModel>(obj);
+
+                var appUser = new ApplicationUser {UserName = user.Email, Email = user.Email};
+                var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                if (ValidatePassword(user.Password))
+                {
+                    manager.Create(appUser, user.Password);
+
+                    foreach (var role in user.Roles)
+                    {
+                        _service.AddUserToRole(appUser.Id, role);
+                    }
+                }
+
+
+                LoggerFactory.Logger.Info("User was added. Id: {0}", appUser.Id);
+            }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("User wasn't added. Message: {0}", e.Message);
             }
 
-            return RedirectPermanent("Users");
+            return RedirectToAction("Users");
         }
 
         public ActionResult DeleteUser(string id)
         {
-            _service.DeleteUser(id);
+            try
+            {
+                LoggerFactory.Logger.Info("Deleting user. Id: {0}", id);
+                _service.DeleteUser(id);
+                LoggerFactory.Logger.Info("User was deleted. Id: {0}", id);
+            }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("User wasn't deleted. Message: {0}", e.Message);
+            }
+
             return null; //RedirectToAction("Users");
         }
 
@@ -94,6 +129,7 @@ namespace ViewLayer.Controllers
 
         public ActionResult AddRole(string name)
         {
+            LoggerFactory.Logger.Info("Adding role. Name: {0}", name);
             _service.AddRole(name);
             return RedirectToAction("Users");
         }
@@ -105,6 +141,7 @@ namespace ViewLayer.Controllers
 
         public ActionResult CarsList()
         {
+            LoggerFactory.Logger.Info("Car list");
             return PartialView("CarsList", _unitOfWork.Cars.GetAll());
         }
 
@@ -117,11 +154,20 @@ namespace ViewLayer.Controllers
         [HttpPost]
         public ActionResult AddCar(Car car)
         {
+            LoggerFactory.Logger.Info("Adding car");
             if (ModelState.IsValid)
             {
-                car.Id = Guid.NewGuid();
-                _unitOfWork.Cars.Add(car);
-                _unitOfWork.Save();
+                try
+                {
+                    car.Id = Guid.NewGuid();
+                    _unitOfWork.Cars.Add(car);
+                    _unitOfWork.Save();
+                    LoggerFactory.Logger.Info("Car was added. Id: {0}", car.Id);
+                }
+                catch (Exception e)
+                {
+                    LoggerFactory.Logger.Error("Car wasn't added. Id: {0}. Message: {1}", car.Id, e.Message);
+                }
             }
 
             return RedirectPermanent("Cars");
@@ -136,15 +182,35 @@ namespace ViewLayer.Controllers
         [HttpPost]
         public ActionResult EditCar(Car car)
         {
-            _unitOfWork.Cars.Update(car);
-            _unitOfWork.Save();
+            try
+            {
+                LoggerFactory.Logger.Info("Editing car. Id: {0}", car.Id);
+                _unitOfWork.Cars.Update(car);
+                _unitOfWork.Save();
+                LoggerFactory.Logger.Info("Car was edited. Id: {0}", car.Id);
+            }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("Car wasn't edited. Id: {0}. Message: {1}", car.Id, e.Message);
+            }
+
             return RedirectPermanent("Cars");
         }
 
         public ActionResult DeleteCar(string id)
         {
-            _unitOfWork.Cars.Delete(id);
-            _unitOfWork.Save();
+            try
+            {
+                LoggerFactory.Logger.Info("Deleting car. Id: {0}", id);
+                _unitOfWork.Cars.Delete(id);
+                _unitOfWork.Save();
+                LoggerFactory.Logger.Info("Car was deleted. Id: {0}", id);
+            }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("Car wasn't deleted. Message: {0}", e.Message);
+            }
+
             return null; //RedirectPermanent("Cars");
         }
 
@@ -155,6 +221,7 @@ namespace ViewLayer.Controllers
 
         public ActionResult OrdersList()
         {
+            LoggerFactory.Logger.Info("Orders list");
             var orderList = _unitOfWork.Orders.GetAll();
             var users = _unitOfWork.Users;
             foreach (var order in orderList)
@@ -172,10 +239,13 @@ namespace ViewLayer.Controllers
 
         public ActionResult ConfirmOrder()
         {
-            var id = Util.ReadStream(Request.InputStream);
-            var order = _unitOfWork.Orders.GetById(id);
-            order.Status = "Confirmed";
-            _unitOfWork.Orders.Update(order);
+            try
+            {
+                var id = Util.ReadStream(Request.InputStream);
+                LoggerFactory.Logger.Info("Confirming order. Id: {0}", id);
+                var order = _unitOfWork.Orders.GetById(id);
+                order.Status = "Confirmed";
+                _unitOfWork.Orders.Update(order);
 //            var message = new IdentityMessage
 //            {
 //                Body = "Your order is confirmed.\nOrder number: " + order.Id,
@@ -184,16 +254,26 @@ namespace ViewLayer.Controllers
 //            };
 //            var emailService = new EmailService();
 //            await emailService.SendAsync(message);
+                LoggerFactory.Logger.Info("Order was confirmed. Id: {0}", id);
+            }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("Order wasn't confirmed. Message: {0}", e.Message);
+            }
+
             return null;
         }
 
         public ActionResult DeclineOrder()
         {
-            var input = Util.ReadStream(Request.InputStream);
-            var data = Util.Deserialize<string[]>(input);
-            var order = _unitOfWork.Orders.GetById(data[0]);
-            order.Status = "Declined";
-            _unitOfWork.Orders.Update(order);
+            try
+            {
+                var input = Util.ReadStream(Request.InputStream);
+                var data = Util.Deserialize<string[]>(input);
+                var order = _unitOfWork.Orders.GetById(data[0]);
+                LoggerFactory.Logger.Info("Declining order. Id: {0}", order);
+                order.Status = "Declined";
+                _unitOfWork.Orders.Update(order);
 //            var message = new IdentityMessage
 //            {
 //                Body = "Order number: " + order.Id + "was declined.\n" + data[1],
@@ -202,6 +282,13 @@ namespace ViewLayer.Controllers
 //            };
 //            var emailService = new EmailService();
 //            await emailService.SendAsync(message);
+                LoggerFactory.Logger.Info("Order was declined. Id: {0}", order);
+            }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("Order wasn't declined. Message: {0}", e.Message);
+            }
+
             return null;
         }
 
@@ -211,5 +298,9 @@ namespace ViewLayer.Controllers
             order.Car = _unitOfWork.Cars.GetById(order.CarEntityId.ToString("D"));
             return View(order);
         }
+
+        public bool ValidatePassword(string password) =>
+            password.Any(char.IsDigit) && password.Any(char.IsLower) && password.Any(char.IsUpper) &&
+            (password.Any(char.IsSymbol) || password.Any(char.IsPunctuation));
     }
 }
