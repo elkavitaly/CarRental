@@ -32,7 +32,7 @@ header {
 
 main {
     margin-top: 100px;
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 150px);
 }
 
 .col-50 {
@@ -219,8 +219,16 @@ input:focus {
 }
 
 footer {
-    height: 100px;
+    height: 50px;
     background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-block {
+    color: white;
+    font-size: 20px;
 }
 
 .admin-link {
@@ -242,4 +250,8 @@ footer {
     align-items: center;
     height: 50px;
     font-size: 20px;
+}
+
+.admin-link-container a {
+    color: black;
 }

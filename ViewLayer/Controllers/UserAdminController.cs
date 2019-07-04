@@ -15,6 +15,7 @@ using ViewLayer.Models;
 
 namespace ViewLayer.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserAdminController : Controller
     {
         private readonly IAdminService _service;
@@ -24,11 +25,6 @@ namespace ViewLayer.Controllers
         {
             _service = new AdminService();
             _unitOfWork = RepositoryFactory.Instance.Initialize;
-        }
-
-        public ActionResult Index()
-        {
-            return View();
         }
 
         public ActionResult Users()
@@ -132,6 +128,10 @@ namespace ViewLayer.Controllers
             _service.AddRole(name);
             return RedirectToAction("Users");
         }
+
+        public bool ValidatePassword(string password) =>
+            password.Any(char.IsDigit) && password.Any(char.IsLower) && password.Any(char.IsUpper) &&
+            (password.Any(char.IsSymbol) || password.Any(char.IsPunctuation));
 
         public string GetUsersRoles(string id)
         {

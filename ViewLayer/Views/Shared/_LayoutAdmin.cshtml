@@ -21,10 +21,10 @@
             @Html.ActionLink("Main", "Index", "Admin")
         </div>
         <div class="menu-item">
-            @Html.ActionLink("Orders", "Orders", "Admin")
+            @Html.ActionLink("Orders", "Orders", "OrderAdmin")
         </div>
         <div class="menu-item">
-            @Html.ActionLink("Cars", "Cars", "Admin")
+            @Html.ActionLink("Cars", "Cars", "CarAdmin")
         </div>
         <div class="menu-item">
             @Html.ActionLink("Users", "Users", "UserAdmin")
@@ -34,5 +34,10 @@
 <main>
     @RenderBody()
 </main>
+<footer>
+    <div class="footer-block">
+        All Rights Reserved
+    </div>
+</footer>
 </body>
 </html>

@@ -18,6 +18,11 @@ namespace ViewLayer.Controllers
         [HttpGet]
         public ActionResult Index(string id)
         {
+            if (User.IsInRole("Blocked"))
+            {
+                return RedirectToAction("Index", "Catalog");
+            }
+
             var car = _unitOfWork.Cars.GetById(id);
             return View(new Order {Car = car});
         }
@@ -26,26 +31,30 @@ namespace ViewLayer.Controllers
         public ActionResult Index(Order order)
         {
             LoggerFactory.Logger.Info("Making order");
-            if (ModelState.IsValid)
+
+            try
             {
-                try
-                {
-                    order.Id = Guid.NewGuid();
-                    order.UserId = Guid.Parse(User.Identity.GetUserId());
-                    order.CarEntityId = order.Car.Id;
-                    order.DateTime = DateTime.UtcNow;
-                    _unitOfWork.Orders.Add(order);
-                    _unitOfWork.Save();
-                    LoggerFactory.Logger.Info("Order was made. Id: {0}", order.Id);
-                    return RedirectPermanent(Url.Action("Index", "Catalog"));
-                }
-                catch (Exception e)
-                {
-                    LoggerFactory.Logger.Error("Order wasn't made. Message: {0}", e.Message);
-                }
+                order.Id = Guid.NewGuid();
+                order.UserId = Guid.Parse(User.Identity.GetUserId());
+                order.CarEntityId = order.Car.Id;
+                order.DateTime = DateTime.UtcNow;
+                _unitOfWork.Orders.Add(order);
+                _unitOfWork.Save();
+                LoggerFactory.Logger.Info("Order was made. Id: {0}", order.Id);
+                return View("OrderPayment", order.Total);
+            }
+            catch (Exception e)
+            {
+                LoggerFactory.Logger.Error("Order wasn't made. Message: {0}", e.Message);
             }
 
             return View(order);
+        }
+
+        public ActionResult OrderPayment(double total)
+        {
+            ViewBag.Total = total;
+            return View();
         }
     }
 }

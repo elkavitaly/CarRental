@@ -72,7 +72,8 @@
             </div>
             <div class="input-container">
                 <div class="checkbox-input">
-                    @Html.CheckBoxFor(m => m.Driver)
+                    @* @Html.CheckBoxFor(m => m.Driver) *@
+                    <input data-val="true" data-val-required="Требуется поле Driver." id="Driver" name="Driver" type="checkbox" value="true">
                 </div>
             </div>
             <div class="input-container">
@@ -85,7 +86,8 @@
 }
 <script>    
     initializeDate();
-
+    document.querySelector("input[name=Driver]").addEventListener("change", countSum);
+    
     function initializeDate(){
         let date = new Date(Date.now());
         let dayStart = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
@@ -132,11 +134,13 @@
     }
     
     function countSum(){
+        let driver = document.querySelector("input[name=Driver]").checked;
         let start_date = Date.parse(document.querySelector("#date_start").value);
         let end_date = Date.parse(document.querySelector("#date_end").value);
         let day = 24 * 3600 * 1000;
         let price = document.querySelector("#price");
         let total = document.querySelector(".input-total");
-        total.value = Math.abs(Math.round((end_date - start_date)/day)) * price.value;
+        let days = Math.abs(Math.round((end_date - start_date)/day));
+        total.value = driver ? (+price.value + 50) * days : days * price.value;
     }
 </script>

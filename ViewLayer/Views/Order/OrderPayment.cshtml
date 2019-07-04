@@ -1,0 +1,60 @@
+@model double
+@Styles.Render("~/Content/paymentstyle.css")
+
+<div class="payment-container">
+    @using (Html.BeginForm("Index", "Catalog", FormMethod.Post))
+    {
+        <div class="payment-row">
+            <div class="pay-header">Payment Details</div>
+        </div>
+        <div class="payment-row">
+            <div class="pay-inp-cont">
+                <label for="card">CARD NUMBER</label>
+                <input type="text" id="card" name="card" data-val="true" data-val-regex-pattern="([0-9]{4}-){3}([0-9]{4})" data-val-regex="Invalid input Format: xxxx-xxxx-xxxx-xxxx">
+                <span class="field-validation-valid" data-valmsg-for="card" data-valmsg-replace="true"></span>
+            </div>
+            <div class="row-pay">
+                <div class="pay-inp-cont">
+                    <label for="date">EXPIRATION DATE</label>
+                    <input type="text" id="date" name="date" data-val="true" data-val-regex-pattern="(([1][1-2])||([0][1-9]))\/(([1-2][0-9]))" data-val-regex="Invalid input Format: 00/00">
+                    <span class="field-validation-valid" data-valmsg-for="date" data-valmsg-replace="true"></span>
+                </div>
+                <div class="pay-inp-cont">
+                    <label for="cvv">CVV</label>
+                    <input type="password" id="cvv" name="cvv" data-val="true" data-val-regex-pattern="[0-9]{3}" data-val-regex="Invalid input Format: 111">
+                    <span class="field-validation-valid" data-valmsg-for="cvv" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+        </div>
+        <div class="payment-row">
+            <div class="row-pay">
+                <div>Total</div>
+                <div>@Model</div>
+            </div>
+        </div>
+        <div class="payment-row">
+            <div class="pay-btn-container">
+                <button type="button" class="pay-btn">Pay</button>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+
+    document.querySelector(".pay-btn").onclick = submitForm;
+    
+    function submitForm(){
+        let errors = document.querySelectorAll(".field-validation-error");
+        let inputs = document.querySelectorAll("input");
+        let flag = true;
+        for(let inp of inputs){
+            if(inp.value === ""){
+                flag = false;
+            }
+        }
+        if(errors.length === 0 && flag){
+            document.querySelector("form").submit();
+        }
+    }
+</script>

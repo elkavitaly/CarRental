@@ -1,6 +1,6 @@
 @{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
 <div class="admin-main">
-    <div class="admin-link-container">@Html.ActionLink("Users", "Users", "Admin", new {@class = "admin-link"})</div>
-    <div class="admin-link-container">@Html.ActionLink("Cars", "Cars", "Admin", new {@class = "admin-link"})</div>
-    <div class="admin-link-container">@Html.ActionLink("Orders", "Orders", "Admin", new {@class = "admin-link"})</div>
+    <div class="admin-link-container">@Html.ActionLink("Cars", "Cars", "CarAdmin")</div>
+    <div class="admin-link-container">@Html.ActionLink("Users", "Users", "UserAdmin")</div>
+    <div class="admin-link-container">@Html.ActionLink("Orders", "Orders", "OrderAdmin")</div>
 </div>
