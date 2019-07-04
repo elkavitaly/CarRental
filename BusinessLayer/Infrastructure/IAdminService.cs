@@ -20,7 +20,7 @@ namespace BusinessLayer.Infrastructure
 
         void AddUserToRole(string userId, string roleId);
 
-        void DeleteUserFromRole(string userId, string roleId);
+        void DeleteUserFromRole(string userId, string roleName);
 
         IEnumerable<string> GetRoles(string userId);
     }

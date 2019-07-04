@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using BusinessLayer.Factory;
@@ -37,7 +36,12 @@ namespace BusinessLayer.Services
             _unitOfWork.SaveIdentity();
         }
 
-        public void DeleteUserFromRole(string userId, string roleId) => throw new NotImplementedException();
+        public void DeleteUserFromRole(string userId, string roleId)
+        {
+            var role = new IdentityUserRole() {UserId = userId, RoleId = roleId};
+            _unitOfWork.Users.GetById(userId).Roles.Remove(role);
+            _unitOfWork.SaveIdentity();
+        }
 
         public IEnumerable<ApplicationUser> Users() => _unitOfWork.Users.GetAll();
 

@@ -42,12 +42,15 @@
         deleteNodes(document.querySelector(".order-id"));
         document.querySelector("#decline-text").value = "";
         let dwindow = document.querySelector("#decline-model-window");
+        document.querySelector("body").addEventListener("click", checkClick);
         dwindow.style.display = "flex";
         document.querySelector(".order-id").appendChild(document.createTextNode(value));
         document.querySelector("#decline-btn").value = value;
         
-        document.querySelector(".decline-close").onclick = function(){
+        document.querySelector(".decline-close img").onclick = function(){
             dwindow.style.display = "none";
+            document.querySelector("body").removeEventListener("click", checkClick);
+
         };
         
         document.querySelector("#decline-btn").onclick = function(){
@@ -55,8 +58,19 @@
             let data = [this.value, text];
             request('@Url.Action("DeclineOrder")', JSON.stringify(data));
             document.querySelector("#decline-model-window").style.display = "none";
+            document.querySelector("body").removeEventListener("click", checkClick);
+
         };
         
+    }
+    
+    function checkClick(event){
+        let node = document.querySelector("#decline-model-window");
+        if(event.target.parentNode != node && event.target.parentNode.parentNode != node){
+            document.querySelector("#decline-model-window").style.display = "none";
+            document.querySelector("body").removeEventListener("click", checkClick);
+
+        }
     }
     
     function deleteNodes(node){

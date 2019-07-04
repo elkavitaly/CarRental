@@ -7,6 +7,7 @@
         <th>Roles</th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     @foreach (var user in Model)
     {
@@ -20,17 +21,16 @@
                         <img src="~/Content/Images/support.png">
                     </a>
                 </div>
-                @* <button type="button" class="edit users-btn-edit-delete" value="@user.Id"> *@
-                @*     <a href='@Url.Action("EditUser")?id=@user.Id'>Edit</a> *@
-                @* </button> *@
             </td>
             <td>
                 <div class="order-image delete" value="@user.Id">
                     <img src="~/Content/Images/trash.png">
                 </div>
-                @* <button type="button" class="delete users-btn-edit-delete" value="@user.Id"> *@
-                @*     <a href='@Url.Action("DeleteUser")?id=@user.Id'>Delete</a> *@
-                @* </button> *@
+            </td>
+            <td>
+                <div class="order-image change" value="@user.Id">
+                    <img src="~/Content/Images/users.png">
+                </div>
             </td>
         </tr>
     }

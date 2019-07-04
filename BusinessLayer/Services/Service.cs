@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using BusinessLayer.Factory;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Models;
@@ -74,7 +75,8 @@ namespace BusinessLayer.Services
             {
                 foreach (var property in properties)
                 {
-                    if (item.GetType().GetProperty(property.Name).GetValue(item).ToString().Contains(pattern))
+                    var value = item.GetType().GetProperty(property.Name)?.GetValue(item).ToString();
+                    if (Regex.IsMatch(value, pattern, RegexOptions.IgnoreCase))
                     {
                         if (!result.Contains(item))
                         {

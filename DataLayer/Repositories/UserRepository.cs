@@ -23,7 +23,8 @@ namespace DataLayer.Repositories
 
         public void Delete(string id) => _context.Users.Remove(GetById(id));
 
-        public ApplicationUser GetById(string id) => _context.Users.First(user => user.Id == id);
+        public ApplicationUser GetById(string id) =>
+            _context.Users.FirstOrDefault(user => user.Id == id) ?? new ApplicationUser();
 
         public IEnumerable<ApplicationUser> GetAll() => _context.Users;
     }
