@@ -42,7 +42,7 @@ namespace ViewLayer.Controllers
                 LoggerFactory.Logger.Info("Filtering catalog");
                 var data = Util.ReadStream(Request.InputStream);
                 var obj = Util.Deserialize<FilterViewModel>(data);
-                list = await Task.Run(() => _service.Filter(obj.Filter));
+                list = await Task.Run(() => _service.Filter(_unitOfWork.Cars.GetAll(), obj.Filter));
                 list = await Task.Run(() => _service.Sort(list, obj.Sort));
                 LoggerFactory.Logger.Info("Catalog filtered");
             }

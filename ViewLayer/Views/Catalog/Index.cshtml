@@ -62,7 +62,7 @@
         while(list.firstChild){
             list.removeChild(list.firstChild);
         }
-        request('@Url.Action("Search")', value);
+        request('@Url.Action("Search")', value.trim());
     }
     
     function request(url, data){

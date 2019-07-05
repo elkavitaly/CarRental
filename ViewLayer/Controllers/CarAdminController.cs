@@ -34,6 +34,7 @@ namespace ViewLayer.Controllers
         [HttpGet]
         public ActionResult AddCar()
         {
+            ViewBag.Url = "AddCar";
             return View();
         }
 
@@ -49,6 +50,7 @@ namespace ViewLayer.Controllers
                     _unitOfWork.Cars.Add(car);
                     _unitOfWork.Save();
                     LoggerFactory.Logger.Info("Car was added. Id: {0}", car.Id);
+                    return RedirectToAction("Cars");
                 }
                 catch (Exception e)
                 {
@@ -56,12 +58,14 @@ namespace ViewLayer.Controllers
                 }
             }
 
-            return RedirectPermanent("Cars");
+            ViewBag.Url = "AddCar";
+            return View(car);
         }
 
         [HttpGet]
         public ActionResult EditCar(string id)
         {
+            ViewBag.Url = "EditCar";
             return View("AddCar", _unitOfWork.Cars.GetById(id));
         }
 

@@ -13,8 +13,7 @@ namespace BusinessLayer.Models
 
         [Required(AllowEmptyStrings = false)] public string Class { get; set; }
 
-        [RegularExpression("^([1-9]{1,})(.[0-9]{1,})?$")]
-        public double Price { get; set; }
+        [DataType(DataType.Currency)] public double Price { get; set; }
 
         [Required(AllowEmptyStrings = false)] public string Image { get; set; }
 

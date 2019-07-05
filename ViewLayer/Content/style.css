@@ -137,7 +137,7 @@ main {
 }
 
 .form-page {
-    height: 100vh;
+    height: calc(100vh - 50px);
     width: 100%;
     display: flex;
     background-image: url("Images/city_road_edited.jpg");
@@ -149,10 +149,16 @@ main {
 }
 
 .form-page-form {
-    /*background-color: black;*/
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.back-color {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .form {
@@ -179,6 +185,24 @@ main {
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
+}
+
+.about-text {
+    display: flex;
+    margin: 50px auto 0 auto;
+    width: 80%;
+    height: 100%;
+    color: white;
+    font-size: 30px;
+    align-items: center;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.about-header {
+    margin-top: 0;
+    font-size: 70px;
+    font-weight: bolder;
 }
 
 .row {
@@ -255,3 +279,69 @@ footer {
 .admin-link-container a {
     color: black;
 }
+
+.login-form {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto 0 auto;
+}
+
+.login-form form {
+    margin-top: 20px;
+}
+
+.form-group {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.form-group input {
+    height: 25px;
+    width: 90%;
+    border-radius: 3px;
+    border: 1px solid grey;
+}
+
+.checkbox {
+    display: flex;
+}
+
+.checkbox input {
+    height: 15px;
+    width: 15px;
+}
+
+.checkbox label {
+    margin-left: 5px;
+}
+
+.col-md-10 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.small-group {
+    height: 40px;
+}
+
+.small-group a {
+    color: black;
+    font-size: 16px;
+}
+
+.small-group a:hover {
+    color: grey;
+}
+
+.field-validation-error, .validation-summary-errors {
+    color: red;
+    font-size: 10px;
+    font-weight: bold;
+}
+

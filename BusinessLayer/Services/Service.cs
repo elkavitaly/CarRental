@@ -13,19 +13,20 @@ namespace BusinessLayer.Services
 
         public Service() => _unitOfWork = RepositoryFactory.Instance.Initialize;
 
+        public Service(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
+
         public Car GetById(string id) => _unitOfWork.Cars.GetById(id);
 
-        public IEnumerable<Car> Filter(Dictionary<string, IEnumerable<string>> dict)
+        public IEnumerable<T> Filter<T>(IEnumerable<T> list, Dictionary<string, IEnumerable<string>> dict)
         {
-            var list = _unitOfWork.Cars.GetAll().ToList();
-//            var dict = Util.Deserialize<Dictionary<string, IEnumerable<string>>>(parameters);
+            //var list = _unitOfWork.Cars.GetAll().ToList();
 
             if (dict == null || dict.Keys.Count == 0)
             {
                 return list;
             }
 
-            var result = new List<Car>();
+            var result = new List<T>();
             foreach (var element in dict.Keys)
             {
                 foreach (var val in dict[element])
@@ -88,6 +89,9 @@ namespace BusinessLayer.Services
 
             return result.Distinct();
         }
+
+        public double CalculateTotalPrice(double price, int days, bool driver) =>
+            driver ? (price + 50) * days : price * days;
 
         public IEnumerable<Car> Sort(IEnumerable<Car> cars, string parameter)
         {

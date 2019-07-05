@@ -7,12 +7,14 @@ namespace BusinessLayer.Infrastructure
     {
         Car GetById(string id);
 
-        IEnumerable<Car> Filter(Dictionary<string, IEnumerable<string>> dictionary);
+        IEnumerable<T> Filter<T>(IEnumerable<T> list, Dictionary<string, IEnumerable<string>> dictionary);
 
         IEnumerable<Car> Sort(IEnumerable<Car> cars, string parameter);
 
         Dictionary<string, List<string>> FilterParameters();
 
         IEnumerable<T> Search<T>(IEnumerable<T> cars, string pattern);
+
+        double CalculateTotalPrice(double price, int days, bool driver);
     }
 }
