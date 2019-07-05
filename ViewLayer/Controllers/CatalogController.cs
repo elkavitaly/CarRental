@@ -11,6 +11,9 @@ using ViewLayer.Models;
 
 namespace ViewLayer.Controllers
 {
+    /// <summary>
+    /// Provide functions for car catalog
+    /// </summary>
     public class CatalogController : Controller
     {
         private readonly IService _service;

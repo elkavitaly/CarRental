@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace BusinessLayer.Utils
 {
+    /// <summary>
+    /// Provide functions for Serializing/deserializing JSON data and reading data from streams
+    /// </summary>
     public static class Util
     {
         public static T Deserialize<T>(string data) => JsonConvert.DeserializeObject<T>(data);

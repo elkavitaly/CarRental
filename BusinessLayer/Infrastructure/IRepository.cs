@@ -2,6 +2,10 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Infrastructure
 {
+    /// <summary>
+    /// Provide functions for working with data context of database
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRepository<T>
     {
         void Add(T item);

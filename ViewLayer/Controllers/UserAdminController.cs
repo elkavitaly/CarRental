@@ -15,6 +15,9 @@ using ViewLayer.Models;
 
 namespace ViewLayer.Controllers
 {
+    /// <summary>
+    /// Provide functions for interacting with users collection
+    /// </summary>
     [Authorize(Roles = "Admin")]
     public class UserAdminController : Controller
     {
@@ -90,8 +93,8 @@ namespace ViewLayer.Controllers
                     }
                 }
 
-
                 LoggerFactory.Logger.Info("User was added. Id: {0}", appUser.Id);
+                return RedirectPermanent("Users");
             }
             catch (Exception e)
             {

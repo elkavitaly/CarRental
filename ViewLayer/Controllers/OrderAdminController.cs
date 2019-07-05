@@ -1,13 +1,18 @@
 using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using BusinessLayer.Factory;
 using BusinessLayer.Infrastructure;
 using BusinessLayer.Services;
 using BusinessLayer.Utils;
+using Microsoft.AspNet.Identity;
 using ViewLayer.Models;
 
 namespace ViewLayer.Controllers
 {
+    /// <summary>
+    /// Provide functions for interacting with orders collection
+    /// </summary>
     [Authorize(Roles = "Admin,Manager")]
     public class OrderAdminController : Controller
     {
@@ -38,7 +43,7 @@ namespace ViewLayer.Controllers
             return PartialView("OrdersList", orderList);
         }
 
-        public ActionResult ConfirmOrder()
+        public async Task<ActionResult> ConfirmOrder()
         {
             try
             {
@@ -47,14 +52,15 @@ namespace ViewLayer.Controllers
                 var order = _unitOfWork.Orders.GetById(id);
                 order.Status = "Confirmed";
                 _unitOfWork.Orders.Update(order);
-//            var message = new IdentityMessage
-//            {
-//                Body = "Your order is confirmed.\nOrder number: " + order.Id,
-//                Subject = "Car rental",
-//                Destination = order.User.Email
-//            };
-//            var emailService = new EmailService();
-//            await emailService.SendAsync(message);
+                var user = _unitOfWork.Users.GetById(order.UserId.ToString("D"));
+                var message = new IdentityMessage
+                {
+                    Body = "Your order is confirmed.\nOrder number: " + order.Id,
+                    Subject = "Car rental",
+                    Destination = user.Email
+                };
+                var emailService = new EmailService();
+                await emailService.SendAsync(message);
                 LoggerFactory.Logger.Info("Order was confirmed. Id: {0}", id);
             }
             catch (Exception e)
@@ -65,7 +71,7 @@ namespace ViewLayer.Controllers
             return null;
         }
 
-        public ActionResult DeclineOrder()
+        public async Task<ActionResult> DeclineOrder()
         {
             try
             {
@@ -75,14 +81,15 @@ namespace ViewLayer.Controllers
                 LoggerFactory.Logger.Info("Declining order. Id: {0}", order);
                 order.Status = "Declined";
                 _unitOfWork.Orders.Update(order);
-//            var message = new IdentityMessage
-//            {
-//                Body = "Order number: " + order.Id + "was declined.\n" + data[1],
-//                Subject = "Car rental",
-//                Destination = order.User.Email
-//            };
-//            var emailService = new EmailService();
-//            await emailService.SendAsync(message);
+                var user = _unitOfWork.Users.GetById(order.UserId.ToString("D"));
+                var message = new IdentityMessage
+                {
+                    Body = "Order number: " + order.Id + " was declined.\n" + data[1],
+                    Subject = "Car rental",
+                    Destination = user.Email
+                };
+                var emailService = new EmailService();
+                await emailService.SendAsync(message);
                 LoggerFactory.Logger.Info("Order was declined. Id: {0}", order);
             }
             catch (Exception e)

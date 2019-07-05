@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ViewLayer.Models
 {
+    /// <summary>
+    /// Model for registration new user
+    /// </summary>
     public class UserRegisterViewModel
     {
         [Required]

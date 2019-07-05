@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BusinessLayer.Infrastructure;
@@ -6,6 +7,9 @@ using DataLayer.Contexts;
 
 namespace DataLayer.Repositories
 {
+    /// <summary>
+    /// Provide access to user table in database
+    /// </summary>
     public class UserRepository : IRepository<ApplicationUser>
     {
         private readonly ApplicationDbContext _context;
@@ -16,7 +20,7 @@ namespace DataLayer.Repositories
 
         public void Update(ApplicationUser item)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Delete(ApplicationUser item) => _context.Users.Remove(item);

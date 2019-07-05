@@ -4,6 +4,9 @@ using BusinessLayer.Infrastructure;
 
 namespace ViewLayer.Controllers
 {
+    /// <summary>
+    /// Home page
+    /// </summary>
     public class HomeController : Controller
     {
         private IUnitOfWork _unitOfWork;

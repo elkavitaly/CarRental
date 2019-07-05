@@ -5,7 +5,7 @@
 @Scripts.Render("~/Scripts/")
 
 <div class="register-form">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Users", "UserAdmin", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <div class="flex-container">
@@ -159,6 +159,7 @@
         
         let obj = {Email: email, Password: password, ConfirmPassword: confirmPassword, Roles: roleNames};
         request('@Url.Action("AddUser")', JSON.stringify(obj));
+        document.querySelector("form").submit();
     }
     
     function request(url, data){

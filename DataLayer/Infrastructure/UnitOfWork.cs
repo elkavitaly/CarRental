@@ -6,6 +6,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DataLayer.Infrastructure
 {
+    /// <summary>
+    /// Realization of interface IUnitOfWork
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext _context = new DataContext();

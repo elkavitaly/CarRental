@@ -9,6 +9,9 @@ using DataLayer.Tools;
 
 namespace DataLayer.Repositories
 {
+    /// <summary>
+    /// Provide access to order table in database
+    /// </summary>
     public class OrderRepository : IRepository<Order>
     {
         private readonly DataContext _context;

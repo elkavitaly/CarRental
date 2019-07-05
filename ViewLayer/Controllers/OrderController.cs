@@ -8,6 +8,9 @@ using ViewLayer.Models;
 
 namespace ViewLayer.Controllers
 {
+    /// <summary>
+    /// Provide functions for making order
+    /// </summary>
     [Authorize]
     public class OrderController : Controller
     {

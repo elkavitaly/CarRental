@@ -7,6 +7,9 @@ using BusinessLayer.Models;
 
 namespace BusinessLayer.Services
 {
+    /// <summary>
+    /// Realization of IService
+    /// </summary>
     public class Service : IService
     {
         private readonly IUnitOfWork _unitOfWork;

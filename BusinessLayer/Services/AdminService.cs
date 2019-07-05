@@ -7,6 +7,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BusinessLayer.Services
 {
+    /// <summary>
+    /// Realization of IAdminService
+    /// </summary>
     public class AdminService : IAdminService
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -2,6 +2,9 @@ using System;
 
 namespace DataLayer.Models
 {
+    /// <summary>
+    /// Represent order model in database
+    /// </summary>
     public class OrderEntity
     {
         public Guid Id { get; set; }

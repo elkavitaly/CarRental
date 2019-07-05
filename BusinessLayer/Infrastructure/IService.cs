@@ -3,6 +3,9 @@ using BusinessLayer.Models;
 
 namespace BusinessLayer.Infrastructure
 {
+    /// <summary>
+    /// Provide functions for working with data
+    /// </summary>
     public interface IService
     {
         Car GetById(string id);

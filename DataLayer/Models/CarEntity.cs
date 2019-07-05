@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.Models
 {
+    /// <summary>
+    /// Represent car model in database
+    /// </summary>
     public class CarEntity
     {
         public Guid Id { get; set; }

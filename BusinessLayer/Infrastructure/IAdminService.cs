@@ -4,6 +4,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BusinessLayer.Infrastructure
 {
+    /// <summary>
+    /// Provide functions for user's administration
+    /// </summary>
     public interface IAdminService
     {
         IEnumerable<IdentityRole> Roles();

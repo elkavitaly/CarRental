@@ -3,6 +3,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DataLayer.Contexts
 {
+    /// <summary>
+    /// Data context of database
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

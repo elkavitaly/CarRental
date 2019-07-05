@@ -6,6 +6,9 @@ using DataLayer.Models;
 
 namespace DataLayer.Tools
 {
+    /// <summary>
+    /// Service class for mapping objects
+    /// </summary>
     public static class Mapper
     {
         public static TTo Map<TTo, TFrom>(TFrom entity)

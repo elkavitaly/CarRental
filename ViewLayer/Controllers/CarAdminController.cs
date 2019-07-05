@@ -8,6 +8,9 @@ using ViewLayer.Models;
 
 namespace ViewLayer.Controllers
 {
+    /// <summary>
+    /// Provide functions for interacting with cars collection
+    /// </summary>
     [Authorize(Roles = "Admin")]
     public class CarAdminController : Controller
     {
